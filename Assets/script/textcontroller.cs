@@ -41,7 +41,7 @@ public class textcontroller : MonoBehaviour
 
     IEnumerator Textout()
     {
-        yield return StartCoroutine(NormalChat("テスト","テストしています"));
+        yield return StartCoroutine(NormalChat("テスト","とてもねむいです。"));
         yield return StartCoroutine(NormalChat("テスト", "確認してください"));
         yield return StartCoroutine(NormalChat("テスト", "大丈夫ですか"));
         yield return StartCoroutine(NormalChat("テスト", "どうですか"));

@@ -6,6 +6,7 @@ public class ItemController : MonoBehaviour
 {
     [SerializeField] private List<GameObject> panels;
     private ItemUtils itemUtils;
+    bool clickCancel;
 
     private void Start() {
         itemUtils = GetComponent<ItemUtils>(); //アイテムUtilsの取得
@@ -15,6 +16,8 @@ public class ItemController : MonoBehaviour
     void Update()
     {
         if (Input.GetMouseButtonDown(0)) {
+
+            if (clickCancel) return;
 
             RaycastHit hit;
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -53,6 +56,9 @@ public class ItemController : MonoBehaviour
     //アイテム欄をクリックしたときの処理　ﾖｼｯ
     public void buttonClick(GameObject gameObject)
     {
+
+        clickCancel = false;
+
         //パネルがリストに入っているか確認
         if(!panels.Contains(gameObject))
         {
@@ -79,5 +85,30 @@ public class ItemController : MonoBehaviour
         image = gameObject.GetComponent<Image>();
         image.color = itemUtils.HexToRGB("#FFFFFF");
         itemUtils.choosingGameObject = gameObject;
+    }
+
+    public void PointEnter(GameObject gameObject){
+        //パネルがリストに入っているか確認
+        if(!panels.Contains(gameObject))
+        {
+            Debug.Log("そのパネルはリストに入っていません");
+            return;
+        }
+
+        //選択したパネルにアイテムが入っているか確認
+        if(gameObject.transform.childCount == 0){
+            Debug.Log("そのパネルにはアイテムが入っていません");
+            return;
+        }
+
+        Debug.Log("アイテム詳細表示中："+gameObject.transform.GetChild(0).gameObject.name);
+    }
+
+    public void PointExit(){
+        Debug.Log("アイテム詳細非表示");
+    }
+
+    public void PointDown(){
+        clickCancel = true;
     }
 }

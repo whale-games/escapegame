@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -8,6 +9,20 @@ public class ItemController : MonoBehaviour
     private ItemUtils itemUtils;
     bool clickCancel;
 
+    //20231019DAY追加
+
+    public Text ChatText;
+    public Text CharacterName;
+    public GameObject namespace1;
+    public GameObject textspace1;
+    public string writerText = "";
+
+    //
+    private void Awake()
+    {
+        namespace1.SetActive(false);
+        textspace1.SetActive(false);
+    }
     private void Start() {
         itemUtils = GetComponent<ItemUtils>(); //アイテムUtilsの取得
     }
@@ -26,9 +41,12 @@ public class ItemController : MonoBehaviour
                 //アイテムをクリックした時の処理
                 if(hit.collider.tag == "Item"){
                     int returncode = itemUtils.AddItem(hit.collider.gameObject, panels);
+                    namespace1.SetActive(true);
+                    textspace1.SetActive(true);
+                    StartCoroutine(itemget());
                     //エラー処理
                     //-1 配列がいっぱい
-                    switch(returncode){
+                    switch (returncode){
                         case -1:
                             Debug.Log("配列がいっぱいです。");
                             break;
@@ -49,6 +67,8 @@ public class ItemController : MonoBehaviour
                 Image image = itemUtils.choosingGameObject.GetComponent<Image>();
                 image.color = itemUtils.HexToRGB("#808080");
                 itemUtils.choosingGameObject = null;
+                namespace1.SetActive(false);
+                textspace1.SetActive(true);
             }
         }
     }
@@ -110,5 +130,42 @@ public class ItemController : MonoBehaviour
 
     public void PointDown(){
         clickCancel = true;
+    }
+
+    IEnumerator NormalChat(string narrator, string narration)
+    {
+        int count = 0;
+        CharacterName.text = narrator;
+        writerText = "";
+
+        for (count = 0; count < narration.Length; count++)
+        {
+            writerText += narration[count];
+            ChatText.text = writerText;
+            yield return null;
+        }
+
+        while (true)
+        {
+            if (Input.GetMouseButtonDown(0))
+            {
+                break;
+            }
+            yield return null;
+        }
+
+    }
+
+    IEnumerator itemget()
+    {
+        yield return StartCoroutine(NormalChat("システム", "アイテムをゲットしました"));
+
+    }
+
+    IEnumerator getname()
+    {
+        yield return StartCoroutine(NormalChat("テスト", "アイテムをゲットしました"));
+        yield return StartCoroutine(NormalChat("", ""));
+
     }
 }

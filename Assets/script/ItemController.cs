@@ -5,6 +5,7 @@ using UnityEngine.UI;
 public class ItemController : MonoBehaviour
 {
     [SerializeField] private List<GameObject> panels;
+    [SerializeField] private KeyPanel keyPanel;
     private ItemUtils itemUtils;
     bool clickCancel;
 
@@ -33,6 +34,10 @@ public class ItemController : MonoBehaviour
                             Debug.Log("配列がいっぱいです。");
                             break;
                     }
+                }
+
+                if(hit.collider.gameObject.name == "Table"){
+                    keyPanel.ActiveKeyPad();
                 }
 
                 //アイテムを使用する場所をクリックした時の処理

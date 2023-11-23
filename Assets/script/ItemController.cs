@@ -36,14 +36,22 @@ public class ItemController : MonoBehaviour
                     }
                 }
 
-                if(hit.collider.gameObject.name == "Table"){
-                    keyPanel.ActiveKeyPad();
+                switch(hit.collider.gameObject.name){
+                    case "Locker":
+                        keyPanel.ActiveKeyPad();
+                        break;
+                    case "Camouflage suitcase with relief":
+                        break;
                 }
 
                 //アイテムを使用する場所をクリックした時の処理
                 if(hit.collider.tag == "ItemUse" && itemUtils.choosingGameObject != null){
-                    itemUtils.RemoveItem(itemUtils.choosingGameObject.transform.GetChild(0).gameObject);
-                    Debug.Log("アイテムを使用した！");
+                    switch(hit.collider.gameObject.name){
+                        case "Table":
+                            if(itemUtils.choosingGameObject.transform.GetChild(0).gameObject.name == "Simple_03")
+                                itemUtils.RemoveItem(itemUtils.choosingGameObject.transform.GetChild(0).gameObject);
+                            break;
+                    }
                 }else if (itemUtils.choosingGameObject == null){
                     Debug.Log("アイテムを指定していません");
                 }

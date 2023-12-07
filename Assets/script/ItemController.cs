@@ -30,34 +30,49 @@ public class ItemController : MonoBehaviour
                 if(hit.collider.tag == "Item" && !GameManager.nowMessage){
                     Debug.Log(hit.collider.gameObject.name);
                     string errorMessage = itemUtils.AddItem(hit.collider.gameObject, panels);
-                    Event.Invoke(new ItemClickEvent{name = hit.collider.gameObject.name,errorMessage=errorMessage});
-                }
-
-                switch(hit.collider.gameObject.name){
-                    case "Locker":
-                        keyPanel.ActiveKeyPad();
-                        break;
-                    case "Camouflage suitcase with relief":
-                        break;
+                    Event.Invoke(new ItemClickEvent{tag = "Item",name = hit.collider.gameObject.name,errorMessage=errorMessage});
                 }
 
                 //アイテムを使用する場所をクリックした時の処理
                 if(hit.collider.tag == "ItemUse" && itemUtils.choosingGameObject != null){
-                    switch(hit.collider.gameObject.name){
-                        case "Table":
-                            if(itemUtils.choosingGameObject.transform.GetChild(0).gameObject.name == "Simple_03")
-                                itemUtils.RemoveItem(itemUtils.choosingGameObject.transform.GetChild(0).gameObject);
+                    switch(itemUtils.choosingGameObject.transform.GetChild(0).gameObject.name){
+                        case "Simple_02":
+                            if(hit.collider.gameObject.name != "Table") return;
+
+                            Event.Invoke(new ItemClickEvent{tag = "ItemUse",name = hit.collider.gameObject.name,errorMessage=null});
+                            itemUtils.RemoveItem(itemUtils.choosingGameObject.transform.GetChild(0).gameObject);
+                            GameManager.flag1 = true;
                             break;
                     }
-                }else if (itemUtils.choosingGameObject == null){
-                    Debug.Log("アイテムを指定していません");
+                }else if (hit.collider.tag == "ItemUse" && itemUtils.choosingGameObject == null){
+                    switch(hit.collider.gameObject.name){
+                        case "Camouflage suitcase with relief":
+                            Event.Invoke(new ItemClickEvent{tag = "ItemUse",name = hit.collider.gameObject.name,errorMessage=null});
+                            if (GameManager.flag3)
+                            GameManager.flag2 = true;
+                            break;
+                        case "Locker":
+                            Event.Invoke(new ItemClickEvent{tag = "ItemUse",name = hit.collider.gameObject.name,errorMessage=null});
+
+                            if(GameManager.flag1)
+                            GameManager.flag3 = true;
+
+                            if (GameManager.flag2)
+                                keyPanel.ActiveKeyPad();
+                            break;
+                        default:
+                            Debug.Log("アイテムを指定していません");
+                            break;
+                    }
                 }
             }
 
             //アイテムを選択時しているときにパネルの色を戻す
             if(itemUtils.choosingGameObject != null) {
                 Image image = itemUtils.choosingGameObject.GetComponent<Image>();
-                image.color = itemUtils.HexToRGB("#808080");
+                Color color = itemUtils.HexToRGB("#808080");
+                color.a = 0.705f;
+                image.color = color;
                 itemUtils.choosingGameObject = null;
             }
         }
@@ -88,7 +103,9 @@ public class ItemController : MonoBehaviour
         //選択されていたパネルの色を薄くする
         if(itemUtils.choosingGameObject != null) {
             image = itemUtils.choosingGameObject.GetComponent<Image>();
-            image.color = itemUtils.HexToRGB("#808080");
+            Color color = itemUtils.HexToRGB("#808080");
+            color.a = 0.705f;
+            image.color = color;
         }
 
         //選択したパネルの色を濃くする
@@ -124,6 +141,6 @@ public class ItemController : MonoBehaviour
 }
 
 public class ItemClickEvent{
-    public string name,errorMessage;
+    public string tag,name,errorMessage;
 
 }

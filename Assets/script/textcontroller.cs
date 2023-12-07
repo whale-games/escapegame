@@ -12,10 +12,10 @@ public class textcontroller : MonoBehaviour
 
     void Start()
     {
-        StartCoroutine(Textout());
+        //StartCoroutine(Textout());
     }
 
-    IEnumerator NormalChat(string narrator, string narration)
+    public IEnumerator NormalChat(string narrator, string narration)
     {
         int count = 0;
         CharacterName.text = narrator;

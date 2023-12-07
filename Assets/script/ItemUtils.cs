@@ -6,18 +6,18 @@ public class ItemUtils : MonoBehaviour{
     public GameObject choosingGameObject = null;
 
         //アイテムを持ち物に追加
-    public int AddItem(GameObject item, List<GameObject> itemPanelList)
+    public string AddItem(GameObject item, List<GameObject> itemPanelList)
     {
         //要素数が最大の場合に戻す
         if(itemList.Count == 5){
-            return -1;
+            return "配列がいっぱいです。";
         }
         itemList.Add(item.name);
         item.transform.parent = itemPanelList[itemList.IndexOf(item.name)].transform;
         item.transform.localPosition = new Vector3(0,0,-11);
         item.transform.localScale = new Vector3(500,500,500);
         item.layer = 6;
-        return 0;
+        return "0";
     }
 
     //アイテムを削除

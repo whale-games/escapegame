@@ -1,11 +1,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Events;
 
 public class ItemController : MonoBehaviour
 {
     [SerializeField] private List<GameObject> panels;
     [SerializeField] private KeyPanel keyPanel;
+    [SerializeField] UnityEvent<ItemClickEvent> Event;
     private ItemUtils itemUtils;
     bool clickCancel;
 
@@ -25,15 +27,10 @@ public class ItemController : MonoBehaviour
             if (Physics.Raycast(ray, out hit, Mathf.Infinity)) {
 
                 //アイテムをクリックした時の処理
-                if(hit.collider.tag == "Item"){
-                    int returncode = itemUtils.AddItem(hit.collider.gameObject, panels);
-                    //エラー処理
-                    //-1 配列がいっぱい
-                    switch(returncode){
-                        case -1:
-                            Debug.Log("配列がいっぱいです。");
-                            break;
-                    }
+                if(hit.collider.tag == "Item" && !GameManager.nowMessage){
+                    Debug.Log(hit.collider.gameObject.name);
+                    string errorMessage = itemUtils.AddItem(hit.collider.gameObject, panels);
+                    Event.Invoke(new ItemClickEvent{name = hit.collider.gameObject.name,errorMessage=errorMessage});
                 }
 
                 switch(hit.collider.gameObject.name){
@@ -124,4 +121,9 @@ public class ItemController : MonoBehaviour
     public void PointDown(){
         clickCancel = true;
     }
+}
+
+public class ItemClickEvent{
+    public string name,errorMessage;
+
 }

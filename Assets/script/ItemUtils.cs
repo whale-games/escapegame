@@ -16,6 +16,7 @@ public class ItemUtils : MonoBehaviour{
         item.transform.parent = itemPanelList[itemList.IndexOf(item.name)].transform;
         item.transform.localPosition = new Vector3(0,0,-11);
         item.transform.localScale = new Vector3(500,500,500);
+        item.transform.rotation = Quaternion.identity;
         item.layer = 6;
         return "0";
     }

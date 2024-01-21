@@ -7,6 +7,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private textcontroller textcontroller;
     [SerializeField] private GameObject messagePanel;
     public static bool flag1,flag2,flag3;
+    [SerializeField] private GameObject onnnanoko;
     public static bool nowMessage;
     public void TestClick2(ItemClickEvent clickEvent){
         if(clickEvent.tag == "Item")
@@ -52,6 +53,27 @@ public class GameManager : MonoBehaviour
                 else if (flag1 && !flag2)
                     yield return StartCoroutine(textcontroller.NormalChat("Player","机の引き出しにあった数字は1234…。スーツケースの中のメモに「机の引き出しの数字は逆」これらを組み合わせると…。"));
                 break;
+            case "Drill Bits.002":
+                //キャラクター表示
+                onnnanoko.SetActive(true);
+                yield return StartCoroutine(textcontroller.NormalChat("女の子","とてもねむいわね。"));
+                //キャラクター消去
+                onnnanoko.SetActive(false);   
+                break;
+            case "Cone Drill Bits":
+                //キャラクター表示
+                onnnanoko.SetActive(true);
+                yield return StartCoroutine(textcontroller.NormalChat("女の子","こんなものは何の役にも立たないわ。"));
+                //キャラクター消去
+                onnnanoko.SetActive(false);
+                break;
+            case "2 sockets":
+                //キャラクター表示
+                onnnanoko.SetActive(true);
+                yield return StartCoroutine(textcontroller.NormalChat("女の子","電気は通っているようだけどあなたと心は通わないわね。"));
+                //キャラクター消去
+                onnnanoko.SetActive(false);
+                break;            
             default:
                 break;
         }

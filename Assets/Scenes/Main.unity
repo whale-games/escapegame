@@ -540,9 +540,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 3886771180134824281, guid: e6084503f826bbb428b1e677dc1a75d4, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1191089582}
-    - targetCorrespondingSourceObject: {fileID: 6695077866814921248, guid: e6084503f826bbb428b1e677dc1a75d4, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 2122293273}
     - targetCorrespondingSourceObject: {fileID: 5960767560853327965, guid: e6084503f826bbb428b1e677dc1a75d4, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1921750658}

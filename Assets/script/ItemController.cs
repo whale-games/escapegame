@@ -19,7 +19,7 @@ public class ItemController : MonoBehaviour
     void Update()
     {
         if (Input.GetMouseButtonDown(0)) {
-
+            if (GameManager.flag0 != true) return;
             if (clickCancel) return;
 
             RaycastHit hit;
@@ -38,10 +38,9 @@ public class ItemController : MonoBehaviour
                     switch(itemUtils.choosingGameObject.transform.GetChild(0).gameObject.name){
                         case "Simple_02":
                             if(hit.collider.gameObject.name != "Table") return;
-
+                            GameManager.flag1 = true;
                             Event.Invoke(new ItemClickEvent{tag = "ItemUse",name = hit.collider.gameObject.name,errorMessage=null});
                             itemUtils.RemoveItem(itemUtils.choosingGameObject.transform.GetChild(0).gameObject);
-                            GameManager.flag1 = true;
                             break;
                     }
                 }else if (hit.collider.tag == "ItemUse" && itemUtils.choosingGameObject == null){
@@ -60,10 +59,18 @@ public class ItemController : MonoBehaviour
                             if (GameManager.flag2)
                                 keyPanel.ActiveKeyPad();
                             break;
+                        case "Table":
+                            Event.Invoke(new ItemClickEvent{tag = "ItemUse",name = hit.collider.gameObject.name,errorMessage=null});
+                            break;
                         default:
                             Debug.Log("アイテムを指定していません");
                             break;
                     }
+                }
+                            //使用不可アイテムをクリックした時の処理
+                if(hit.collider.tag == "Wrongitem" && !GameManager.nowMessage){
+                    Debug.Log(hit.collider.gameObject.name);
+                    Event.Invoke(new ItemClickEvent{tag = "Wrongitem",name = hit.collider.gameObject.name,errorMessage=null});
                 }
             }
 

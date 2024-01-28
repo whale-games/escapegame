@@ -13,6 +13,7 @@ public class CameraController : MonoBehaviour
   // ボタンを通じて呼び出すので、このスクリプト内では定義しておくだけ
   public void RotateCamera(float angle)
   {
+    if (GameManager.flag0 != true) return;
     if(angle == 0)
     {
       return;

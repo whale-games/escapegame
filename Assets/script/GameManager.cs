@@ -6,10 +6,10 @@ public class GameManager : MonoBehaviour
 {
     [SerializeField] private textcontroller textcontroller;
     [SerializeField] private GameObject messagePanel;
-    public static bool flag0,flag1,flag2,flag3;
+    public static bool flag0,flag1,flag2,flag3,flag20,flag21,flag22,flag23;
     [SerializeField] private GameObject onnnanoko;
     public static bool nowMessage;
-
+    public static bool KeyPanel;
     public void Start(){
                 StartCoroutine("StartTalk"); 
     }
@@ -63,8 +63,9 @@ public class GameManager : MonoBehaviour
         switch(itemClickEvent.name){
             //シナリオ１部分
             case "Table":
-                if (flag1)
-                    yield return StartCoroutine(textcontroller.NormalChat("Player","紙だ。「1234」と書いてある"));
+                if (flag1){
+                    yield return StartCoroutine(textcontroller.NormalChat("Player","鍵が開いた。"));
+                    yield return StartCoroutine(textcontroller.NormalChat("Player","紙だ。「1234」と書いてある"));}
                 else
                     yield return StartCoroutine(textcontroller.NormalChat("Player","鍵穴が空いている。中を見るには鍵が必要だ。"));               
                 break;
@@ -83,6 +84,7 @@ public class GameManager : MonoBehaviour
                     yield return StartCoroutine(textcontroller.NormalChat("Player","机の引き出しにあった数字は1234…。スーツケースの中のメモに「机の引き出しの数字は逆」これらを組み合わせると…。"));
                 break;
                 //シナリオ２部分
+ 
         　　　　//シナリオ３部分
         　　　　//ハズレアイテムタッチ時
 
@@ -108,16 +110,22 @@ public class GameManager : MonoBehaviour
         messagePanel.SetActive(false);
         nowMessage = false;
     }
-
+// Wrongitem
     public IEnumerator WrongItemUseClick(ItemClickEvent itemClickEvent){
         messagePanel.SetActive(true);
         nowMessage = true;
         switch(itemClickEvent.name){
             case "2 sockets":
-            onnnanoko.SetActive(true);
-            yield return StartCoroutine(textcontroller.NormalChat("女の子","電気は通っているようだけどあなたと心は通わないわね。"));
-            onnnanoko.SetActive(false);
-            break;
+              onnnanoko.SetActive(true);
+              yield return StartCoroutine(textcontroller.NormalChat("女の子","電気は通っているようだけどあなたと心は通わないわね。"));
+              onnnanoko.SetActive(false);
+              break;
+            case "Hose":
+                if (flag20)
+                    yield return StartCoroutine(textcontroller.NormalChat("Player","これも脱出に何か関係あるのだろうか。"));
+                else
+                    yield return StartCoroutine(textcontroller.NormalChat("Player","ただのホースのようだ。"));  
+                break;            
             default:
                 break;
         }

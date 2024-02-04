@@ -7,12 +7,15 @@ public class ItemController : MonoBehaviour
 {
     [SerializeField] private List<GameObject> panels;
     [SerializeField] private KeyPanel keyPanel;
+     private AudioSource audioSource;
+ 	[SerializeField] private AudioClip sound01,sound02;
     [SerializeField] UnityEvent<ItemClickEvent> Event;
+    
     private ItemUtils itemUtils;
     bool clickCancel;
-
     private void Start() {
         itemUtils = GetComponent<ItemUtils>(); //アイテムUtilsの取得
+        audioSource = GetComponent<AudioSource>(); //AudioSourceの取得
     }
 
     //画面クリック時の処理
@@ -21,7 +24,8 @@ public class ItemController : MonoBehaviour
         if (Input.GetMouseButtonDown(0)) {
             if (GameManager.flag0 != true) return;
             if (clickCancel) return;
-
+            if (GameManager.nowMessage) return;
+            if (GameManager.KeyPanel) return;
             RaycastHit hit;
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             if (Physics.Raycast(ray, out hit, Mathf.Infinity)) {
@@ -30,6 +34,9 @@ public class ItemController : MonoBehaviour
                 if(hit.collider.tag == "Item" && !GameManager.nowMessage){
                     Debug.Log(hit.collider.gameObject.name);
                     string errorMessage = itemUtils.AddItem(hit.collider.gameObject, panels);
+                    audioSource.volume = 0.5f;
+                    audioSource.clip = sound01;
+                    audioSource.Play();
                     Event.Invoke(new ItemClickEvent{tag = "Item",name = hit.collider.gameObject.name,errorMessage=errorMessage});
                 }
 
@@ -39,6 +46,9 @@ public class ItemController : MonoBehaviour
                         case "Simple_02":
                             if(hit.collider.gameObject.name != "Table") return;
                             GameManager.flag1 = true;
+                            audioSource.volume = 1;
+                            audioSource.clip = sound02;
+                            audioSource.Play();
                             Event.Invoke(new ItemClickEvent{tag = "ItemUse",name = hit.collider.gameObject.name,errorMessage=null});
                             itemUtils.RemoveItem(itemUtils.choosingGameObject.transform.GetChild(0).gameObject);
                             break;
@@ -54,10 +64,11 @@ public class ItemController : MonoBehaviour
                             Event.Invoke(new ItemClickEvent{tag = "ItemUse",name = hit.collider.gameObject.name,errorMessage=null});
 
                             if(GameManager.flag1)
-                            GameManager.flag3 = true;
+                                GameManager.flag3 = true;
 
-                            if (GameManager.flag2)
-                                keyPanel.ActiveKeyPad();
+                            if (GameManager.flag2){
+                                GameManager.KeyPanel = true;                               
+                                keyPanel.ActiveKeyPad();}
                             break;
                         case "Table":
                             Event.Invoke(new ItemClickEvent{tag = "ItemUse",name = hit.collider.gameObject.name,errorMessage=null});

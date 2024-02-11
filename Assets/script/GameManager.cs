@@ -7,20 +7,32 @@ public class GameManager : MonoBehaviour
     [SerializeField] private textcontroller textcontroller;
     [SerializeField] private GameObject messagePanel;
     public static bool flag0,flag1,flag2,flag3,flag20,flag21,flag22,flag23;
+    private AudioSource audioSource;
+ 	[SerializeField] private AudioClip[] audioClip;//配列使用参考
     [SerializeField] private GameObject onnnanoko;
     public static bool nowMessage;
     public static bool KeyPanel;
     public void Start(){
                 StartCoroutine("StartTalk"); 
+                audioSource = GetComponent<AudioSource>(); //AudioSourceの取得
     }
     public IEnumerator StartTalk(){
         messagePanel.SetActive(true);
         nowMessage = true;
-                yield return StartCoroutine(textcontroller.NormalChat("Player","〇〇××"));
+                yield return StartCoroutine(textcontroller.NormalChat("Player","ここは…？"));
                 onnnanoko.SetActive(true);
-                yield return StartCoroutine(textcontroller.NormalChat("女の子","ほいほいほほい"));
+                yield return StartCoroutine(textcontroller.NormalChat("女の子","電撃ビーム！"));
+                audioSource.Stop(); 
+                audioSource.volume = 0.5f;
+                audioSource.clip = audioClip[0];
+                audioSource.Play();
                 yield return StartCoroutine(textcontroller.NormalChat("Player","なんだかいやな感じの女の子だなあ"));
+                audioSource.Stop(); 
+                audioSource.volume = 0.5f;
+                audioSource.clip = audioClip[1];
+                audioSource.Play();
                 yield return StartCoroutine(textcontroller.NormalChat("女の子","時間がないからさっさと脱出方法を探しましょう。"));
+                audioSource.Stop(); 
                 onnnanoko.SetActive(false);
                 flag0 = true;
         messagePanel.SetActive(false);

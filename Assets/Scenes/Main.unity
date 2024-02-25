@@ -1595,6 +1595,8 @@ MonoBehaviour:
   audioClip:
   - {fileID: 8300000, guid: 3756a9c6df2d52046b1fcc8906ee5b8c, type: 3}
   - {fileID: 8300000, guid: 6bc30dcb7776f9649b85fbcfd04363cf, type: 3}
+  koukaonClip:
+  - {fileID: 8300000, guid: 4ebf35648c8f7cb418857f6332dede01, type: 3}
   onnnanoko: {fileID: 1851029479}
   Clock: {fileID: 1733278656}
 --- !u!114 &536713258
@@ -3875,8 +3877,23 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   longBar: {fileID: 577640162}
   shortBar: {fileID: 125630230}
-  longTarget: 0
-  shortTarget: 0
+  longTarget: 9
+  shortTarget: 8
+  Event:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 536713257}
+        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
+        m_MethodName: TestClick2
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1338283985
 MonoBehaviour:
   m_ObjectHideFlags: 0

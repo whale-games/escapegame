@@ -23,11 +23,10 @@ public class textcontroller : MonoBehaviour
 
         for (count = 0; count < narration.Length; count++)
         {
-            writerText += narration[count];
+                writerText += narration[count];
             ChatText.text = writerText;
             yield return null;
         }
-
         while (true)
         {
             if (Input.GetMouseButtonDown(0))
@@ -41,9 +40,9 @@ public class textcontroller : MonoBehaviour
 
     IEnumerator Textout()
     {
-        yield return StartCoroutine(NormalChat("ƒeƒXƒg","‚Æ‚Ä‚à‚Ë‚Þ‚¢‚Å‚·B"));
-        yield return StartCoroutine(NormalChat("ƒeƒXƒg", "Šm”F‚µ‚Ä‚­‚¾‚³‚¢"));
-        yield return StartCoroutine(NormalChat("ƒeƒXƒg", "‘åä•v‚Å‚·‚©"));
-        yield return StartCoroutine(NormalChat("ƒeƒXƒg", "‚Ç‚¤‚Å‚·‚©"));
+        yield return StartCoroutine(NormalChat("ï¿½eï¿½Xï¿½g","ï¿½Æ‚Ä‚ï¿½ï¿½Ë‚Þ‚ï¿½ï¿½Å‚ï¿½ï¿½B"));
+        yield return StartCoroutine(NormalChat("ï¿½eï¿½Xï¿½g", "ï¿½mï¿½Fï¿½ï¿½ï¿½Ä‚ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½"));
+        yield return StartCoroutine(NormalChat("ï¿½eï¿½Xï¿½g", "ï¿½ï¿½ï¿½vï¿½Å‚ï¿½ï¿½ï¿½"));
+        yield return StartCoroutine(NormalChat("ï¿½eï¿½Xï¿½g", "ï¿½Ç‚ï¿½ï¿½Å‚ï¿½ï¿½ï¿½"));
     }
 }

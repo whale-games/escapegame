@@ -6,10 +6,12 @@ public class GameManager : MonoBehaviour
 {
     [SerializeField] private textcontroller textcontroller;
     [SerializeField] private GameObject messagePanel;
-    public static bool flag0,flag1,flag2,flag3,flag20,flag21,flag22,flag23;
+    public static bool flag0,flag1,flag2,flag3,flag20,flag21,flag22,flag23,flag30,flag301,flag31,flag32,flag33;
     private AudioSource audioSource;
  	[SerializeField] private AudioClip[] audioClip;//配列使用参考
+    [SerializeField] private AudioClip[] koukaonClip;//配列使用参考
     [SerializeField] private GameObject onnnanoko;
+    [SerializeField] private GameObject Clock;
     public static bool nowMessage;
     public static bool KeyPanel;
     public void Start(){
@@ -179,6 +181,24 @@ public class GameManager : MonoBehaviour
                     yield return StartCoroutine(textcontroller.NormalChat("Player","とにかく部屋の中を探そう。"));
                     onnnanoko.SetActive(false);
                 break;
+            case "Small stool":
+                //クリア前
+                if (!flag30){
+                    yield return StartCoroutine(textcontroller.NormalChat("　　　","裏側に時計がある。"));
+                    Clock.SetActive(true);}
+                //クリア後
+                else if (flag30 && !flag301){
+                    Clock.SetActive(false);
+                    audioSource.Stop(); 
+                    audioSource.volume = 0.5f;
+                    audioSource.clip = koukaonClip[0];
+                    audioSource.Play();
+                    yield return StartCoroutine(textcontroller.NormalChat("　　　","仕掛けが解除された。"));
+                    flag301 = true;}
+
+                else if (flag30 && flag301)
+                    yield return StartCoroutine(textcontroller.NormalChat("　　　","時計の仕掛けは解除済だ。"));
+                break;    
             default:
                 break;
         }

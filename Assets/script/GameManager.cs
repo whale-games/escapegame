@@ -25,23 +25,30 @@ public class GameManager : MonoBehaviour
                 yield return StartCoroutine(textcontroller.NormalChat("Player","ここは…？"));
                 yield return StartCoroutine(textcontroller.NormalChat("　　　","目が覚めると僕は見知らぬ場所にいた。"));                
                 onnnanoko.SetActive(true);
-                yield return StartCoroutine(textcontroller.NormalChat("女の子","あら、ようやくお目覚め？"));
-                audioSource.Stop(); 
-                audioSource.volume = 0.5f;
+                //女性ボイス
+                audioSource.Stop();
+                audioSource.volume = 0.9f;
                 audioSource.clip = audioClip[0];
                 audioSource.Play();
-                yield return StartCoroutine(textcontroller.NormalChat("Player","君は…？"));
+                yield return StartCoroutine(textcontroller.NormalChat("女の子","あら、ようやくお目覚め？"));
                 audioSource.Stop(); 
-                audioSource.volume = 0.5f;
+                yield return StartCoroutine(textcontroller.NormalChat("Player","君は…？"));
+                //女性ボイス
+                audioSource.volume = 0.9f;
                 audioSource.clip = audioClip[1];
                 audioSource.Play();
                 yield return StartCoroutine(textcontroller.NormalChat("女の子","もしかして、覚えてないの？　昨日の事"));
-                audioSource.Stop(); 
+                audioSource.Stop();
                 yield return StartCoroutine(textcontroller.NormalChat("　　　","…なんの事だろう？"));
                 yield return StartCoroutine(textcontroller.NormalChat("　　　","なんにも覚えていないなあ。ああ、覚えてない覚えてない。"));
                 yield return StartCoroutine(textcontroller.NormalChat("Player","とにかく僕はもう帰りたいんだ。ここは僕のいるべき場所じゃない。"));
                 //女性ボイス
+                audioSource.Stop();
+                audioSource.volume = 0.9f;
+                audioSource.clip = audioClip[2];
+                audioSource.Play(); 
                 yield return StartCoroutine(textcontroller.NormalChat("女の子","…そんなに簡単にここから出られるとは思えないけど。"));
+                audioSource.Stop();
                 yield return StartCoroutine(textcontroller.NormalChat("　　　","なんなんだこの女は。"));
                 yield return StartCoroutine(textcontroller.NormalChat("　　　","部屋を見渡せばすぐに出ていく事ができるはずだ。"));
                 onnnanoko.SetActive(false);
@@ -91,6 +98,8 @@ public class GameManager : MonoBehaviour
                 if (flag1){
                     yield return StartCoroutine(textcontroller.NormalChat("Player","鍵が開いた。"));
                     yield return StartCoroutine(textcontroller.NormalChat("Player","紙だ。「1234」と書いてある"));}
+                else if (flag1 && flag2)
+                    yield return StartCoroutine(textcontroller.NormalChat("Player","机の引き出しにあった数字は1234…。スーツケースの中のメモに「机の引き出しの数字は逆」これらを組み合わせると…。"));
                 else
                     yield return StartCoroutine(textcontroller.NormalChat("Player","鍵穴が空いている。中を見るには鍵が必要だ。"));               
                 break;
@@ -164,19 +173,46 @@ public class GameManager : MonoBehaviour
                     yield return StartCoroutine(textcontroller.NormalChat("　　　","ガシャガシャ。"));
                     yield return StartCoroutine(textcontroller.NormalChat("　　　","…何らかの方法で閉じられており、開かない。"));
                     onnnanoko.SetActive(true);
-                    yield return StartCoroutine(textcontroller.NormalChat("女の子","出られそうにないわね。"));  
+                    //女性ボイス
+                    audioSource.volume = 0.9f;
+                    audioSource.clip = audioClip[3];
+                    audioSource.Play(); 
+                    yield return StartCoroutine(textcontroller.NormalChat("女の子","出られそうにないわね。"));
+                    audioSource.Stop();
                     yield return StartCoroutine(textcontroller.NormalChat("Player","…何か知っているの？"));   
                     //女性ボイス
+                    audioSource.volume = 0.9f;
+                    audioSource.clip = audioClip[4];
+                    audioSource.Play(); 
                     yield return StartCoroutine(textcontroller.NormalChat("女の子","別に。あなたより少し早く起きたから、それくらいは先に調べていたってだけよ。"));
-                    yield return StartCoroutine(textcontroller.NormalChat("Player","じゃあどうやってここから出ればいいの。"));
+                    audioSource.Stop();
+                    yield return StartCoroutine(textcontroller.NormalChat("Player","じゃあ何も知らないのか。どうやってここから出ればいいんだ？"));
                     //女性ボイス
-                    yield return StartCoroutine(textcontroller.NormalChat("女の子","部屋の中を色々と調べてみましょう。何か脱出の手がかりがあるかもしれないから。"));
+                    audioSource.volume = 0.9f;
+                    audioSource.clip = audioClip[5];
+                    audioSource.Play(); 
+                    yield return StartCoroutine(textcontroller.NormalChat("女の子","部屋の中を色々と調べてみましょう。"));
+                    audioSource.Stop();
+                    //女性ボイス
+                    audioSource.volume = 0.9f;
+                    audioSource.clip = audioClip[6];
+                    audioSource.Play(); 
+                    yield return StartCoroutine(textcontroller.NormalChat("女の子","何か脱出の手がかりがあるかもしれないから。"));
+                    audioSource.Stop();
                     yield return StartCoroutine(textcontroller.NormalChat("Player","そうするしかなさそうだな…。"));
                     //女性ボイス
+                    audioSource.volume = 0.9f;
+                    audioSource.clip = audioClip[7];
+                    audioSource.Play();
                     yield return StartCoroutine(textcontroller.NormalChat("女の子","素直ね。"));
+                    audioSource.Stop();
                     yield return StartCoroutine(textcontroller.NormalChat("Player","そうかな。そうかもしれない。"));
                     //女性ボイス
+                    audioSource.volume = 0.9f;
+                    audioSource.clip = audioClip[8];
+                    audioSource.Play();
                     yield return StartCoroutine(textcontroller.NormalChat("女の子","あなたって主義主張がなさそうな顔してるものね"));
+                    audioSource.Stop();
                     yield return StartCoroutine(textcontroller.NormalChat("　　　","そうだろうか？　言われてみたらそうかもしれない。僕には大事にしているものなんて何もないんだ。"));
                     yield return StartCoroutine(textcontroller.NormalChat("Player","とにかく部屋の中を探そう。"));
                     onnnanoko.SetActive(false);

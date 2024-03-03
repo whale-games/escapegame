@@ -1593,8 +1593,18 @@ MonoBehaviour:
   textcontroller: {fileID: 536713258}
   messagePanel: {fileID: 11444917}
   audioClip:
-  - {fileID: 8300000, guid: 3756a9c6df2d52046b1fcc8906ee5b8c, type: 3}
-  - {fileID: 8300000, guid: 6bc30dcb7776f9649b85fbcfd04363cf, type: 3}
+  - {fileID: 8300000, guid: ad74eb0dd0fcb5b4d98f85e60669d1a7, type: 3}
+  - {fileID: 8300000, guid: 36d59e6c9023c5842b6594aecb5d2727, type: 3}
+  - {fileID: 8300000, guid: 7581a90a43e88104ab39844412aab3f7, type: 3}
+  - {fileID: 8300000, guid: 2798b44bf9657dc4ba1eaca3fc2f8a3b, type: 3}
+  - {fileID: 8300000, guid: 498bbbd14a3a36146b6cb8fd859b7d16, type: 3}
+  - {fileID: 8300000, guid: 49be9b003ab656d4e84a8c41e1d7ecf7, type: 3}
+  - {fileID: 8300000, guid: c20d72417d84e3e42bbc2193e0e5b26f, type: 3}
+  - {fileID: 8300000, guid: 2a4efcb235378804fbdff492ac795015, type: 3}
+  - {fileID: 8300000, guid: 6ef27fe576cc93547adfa38630bfe3fc, type: 3}
+  - {fileID: 8300000, guid: 5aa0f6c04e45ee34b91aba9dddeabe92, type: 3}
+  - {fileID: 8300000, guid: 162716314c0038b4b88af046e4249c91, type: 3}
+  - {fileID: 8300000, guid: 31d657071f854af4098350cbe5b5a118, type: 3}
   koukaonClip:
   - {fileID: 8300000, guid: 4ebf35648c8f7cb418857f6332dede01, type: 3}
   onnnanoko: {fileID: 1851029479}

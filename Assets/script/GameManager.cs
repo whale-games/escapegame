@@ -53,7 +53,7 @@ public class GameManager : MonoBehaviour
                 yield return StartCoroutine(textcontroller.NormalChat("　　　","部屋を見渡せばすぐに出ていく事ができるはずだ。"));
                 onnnanoko.SetActive(false);
                 //※赤文字に変更？
-                yield return StartCoroutine(textcontroller.NormalChat("　　　","画面上にある左右の矢印ボタンを押すことで視点を変えることができます。"));
+                yield return StartCoroutine(textcontroller.NormalChat("　　　","<color=#ff0000>※画面上にある左右の矢印ボタンを押すことで視点を変えることができます。</color>"));
                 //※シャッター
                 flag0 = true;
         messagePanel.SetActive(false);
@@ -221,6 +221,7 @@ public class GameManager : MonoBehaviour
                 //クリア前
                 if (!flag30){
                     yield return StartCoroutine(textcontroller.NormalChat("　　　","裏側に時計がある。"));
+                    
                     Clock.SetActive(true);}
                 //クリア後
                 else if (flag30 && !flag301){
@@ -242,3 +243,4 @@ public class GameManager : MonoBehaviour
         nowMessage = false;
     }
 }
+

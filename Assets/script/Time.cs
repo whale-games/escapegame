@@ -8,7 +8,7 @@ public class Time : MonoBehaviour
     [SerializeField] UnityEvent<ItemClickEvent> Event;
     private int longtime=0,shorttime=0;
     private void Start() {
-        GameManager.KeyPanel = true; 
+        GameManager.nowPuzzle = true; 
     }
     public void click(int number){
         switch(number){
@@ -30,7 +30,12 @@ public class Time : MonoBehaviour
             //正解時
             GameManager.flag30 = true;
             Event.Invoke(new ItemClickEvent{tag = "Wrongitem",name = "Small stool",errorMessage=null});
-            GameManager.KeyPanel = false; 
+            GameManager.nowPuzzle = false; 
         }
+    }
+
+    public void Back(){
+        GameManager.nowPuzzle = false;
+        transform.parent.gameObject.SetActive(false);
     }
 }

@@ -29,7 +29,7 @@ public class KeyPanel : MonoBehaviour
                 await Task.Delay(1000);
                 keypad.SetActive(false);
                 GameManager.flag20 = true;
-                GameManager.KeyPanel= false;               
+                GameManager.nowPuzzle= false;               
             }else{
                 //失敗時
                 audioSource.volume = 1;
@@ -46,7 +46,7 @@ public class KeyPanel : MonoBehaviour
 
         //戻る処理
         if (number == -1){
-            GameManager.KeyPanel= false;  
+            GameManager.nowPuzzle= false;  
             keypad.SetActive(false);
             return;
         }

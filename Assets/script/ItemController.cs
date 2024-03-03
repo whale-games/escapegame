@@ -25,7 +25,7 @@ public class ItemController : MonoBehaviour
             if (GameManager.flag0 != true) return;
             if (clickCancel) return;
             if (GameManager.nowMessage) return;
-            if (GameManager.KeyPanel) return;//アイテム触ってる時に他の反応ブロック
+            if (GameManager.nowPuzzle) return;//アイテム触ってる時に他の反応ブロック
             RaycastHit hit;
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             if (Physics.Raycast(ray, out hit, Mathf.Infinity)) {
@@ -67,7 +67,7 @@ public class ItemController : MonoBehaviour
                                 GameManager.flag3 = true;
 
                             if (GameManager.flag2){
-                                GameManager.KeyPanel = true;                               
+                                GameManager.nowPuzzle = true;                               
                                 keyPanel.ActiveKeyPad();}
                             break;
                         case "Table":

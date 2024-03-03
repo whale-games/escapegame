@@ -13,7 +13,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject onnnanoko;
     [SerializeField] private GameObject Clock;
     public static bool nowMessage;
-    public static bool KeyPanel;
+    public static bool nowPuzzle;
     public void Start(){
                 StartCoroutine("StartTalk"); 
                 audioSource = GetComponent<AudioSource>(); //AudioSourceの取得

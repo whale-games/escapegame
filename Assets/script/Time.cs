@@ -28,7 +28,8 @@ public class Time : MonoBehaviour
         if(longtime == longTarget && shorttime == shortTarget){
             Debug.Log("完了");
             //正解時
-            GameManager.flag30 = true;
+            GameManager.flag2end = true;
+            GameManager.flag2enda = true;
             Event.Invoke(new ItemClickEvent{tag = "Wrongitem",name = "Small stool",errorMessage=null});
             GameManager.nowPuzzle = false; 
         }

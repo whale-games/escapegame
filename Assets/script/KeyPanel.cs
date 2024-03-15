@@ -1,6 +1,7 @@
 using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Events;
 
 public class KeyPanel : MonoBehaviour
 {
@@ -9,6 +10,7 @@ public class KeyPanel : MonoBehaviour
     [SerializeField] Text text;
     private AudioSource audioSource;
     [SerializeField] private AudioClip sound01,sound02;
+    [SerializeField] UnityEvent<ItemClickEvent> Event;
     string code;
     public string answer;
 
@@ -20,16 +22,15 @@ public class KeyPanel : MonoBehaviour
         if (number == 200){
             if (code == answer){
                 //正解時
-                audioSource.volume = 1;
-                audioSource.clip = sound01;
-                audioSource.Play();
+                GameManager.flag1end = true;
+                GameManager.flag1enda = true;
                 image.color = Color.blue;
                 code = "";
                 text.text = code;
                 await Task.Delay(1000);
-                keypad.SetActive(false);
-                GameManager.flag20 = true;
-                GameManager.nowPuzzle= false;               
+                Event.Invoke(new ItemClickEvent{tag = "ItemUse",name = "Locker",errorMessage=null});  
+                Debug.Log("完了");
+                GameManager.nowPuzzle= false; 
             }else{
                 //失敗時
                 audioSource.volume = 1;

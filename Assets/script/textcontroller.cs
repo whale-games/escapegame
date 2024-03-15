@@ -23,7 +23,25 @@ public class textcontroller : MonoBehaviour
 
         for (count = 0; count < narration.Length; count++)
         {
-                writerText += narration[count];
+            while(true){
+                if(narration[count] == '<'){
+                    if(narration[count+1] == '/')
+                        narration = narration.Remove(count, narration.IndexOf(">") - count + 1);
+                    else{
+                        writerText += narration.Substring(count, narration.IndexOf(">") - count + 1);
+                        narration = narration.Remove(count, narration.IndexOf(">") - count + 1);
+                        writerText += narration.Substring(narration.IndexOf("<"), narration.IndexOf(">") - narration.IndexOf("<") + 1);
+                    }
+                }
+                if(count >= narration.Length) break;
+                if(narration[count] != '<') break;
+            }
+            if(count < narration.Length){
+                if(count < narration.IndexOf("</"))
+                    writerText = writerText.Insert(writerText.Length-8,narration[count].ToString());
+                else
+                    writerText += narration[count];
+            }
             ChatText.text = writerText;
             yield return null;
         }

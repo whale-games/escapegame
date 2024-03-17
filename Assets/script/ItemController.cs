@@ -24,7 +24,7 @@ public class ItemController : MonoBehaviour
         if (Input.GetMouseButtonDown(0)) {
             if (GameManager.flag0 != true) return;
             if (clickCancel) return;
-            if (GameManager.nowMessage) return;
+            if (GameManager.nowMessage) return;//アイテム触ってる時に他の反応ブロック
             if (GameManager.nowPuzzle) return;//アイテム触ってる時に他の反応ブロック
             RaycastHit hit;
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -99,9 +99,10 @@ public class ItemController : MonoBehaviour
     //アイテム欄をクリックしたときの処理　ﾖｼｯ
     public void buttonClick(GameObject gameObject)
     {
-
+        Debug.Log("アイテム欄クリック");
         clickCancel = false;
-
+        if (GameManager.nowMessage) return;//アイテム触ってる時に他の反応ブロック
+        if (GameManager.nowPuzzle) return;//アイテム触ってる時に他の反応ブロック
         //パネルがリストに入っているか確認
         if(!panels.Contains(gameObject))
         {

@@ -14,6 +14,8 @@ public class CameraController : MonoBehaviour
   public void RotateCamera(float angle)
   {
     if (GameManager.flag0 != true) return;
+    if (GameManager.nowMessage) return;//メッセージが表示されてる時にカメラが回転しないようにする。
+    if (GameManager.nowPuzzle) return;//パズルを解いている間はカメラが回転しないようにする。
     if(angle == 0)
     {
       return;

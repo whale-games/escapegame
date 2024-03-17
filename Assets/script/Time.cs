@@ -7,8 +7,8 @@ public class Time : MonoBehaviour
     [SerializeField] int longTarget,shortTarget;
     [SerializeField] UnityEvent<ItemClickEvent> Event;
     private int longtime=0,shorttime=0;
-    private void Start() {
-        GameManager.nowPuzzle = true; 
+    private void OnEnable() {
+        GameManager.nowPuzzle = true;
     }
     public void click(int number){
         switch(number){
@@ -35,7 +35,8 @@ public class Time : MonoBehaviour
     }
 
     public void Back(){
-        GameManager.nowPuzzle = false;
-        transform.parent.gameObject.SetActive(false);
+        Debug.Log("時計戻る");
+        GameManager.nowPuzzle= false;
+        transform.parent.gameObject.SetActive(false);        
     }
 }

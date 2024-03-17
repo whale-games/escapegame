@@ -73,6 +73,12 @@ public class ItemController : MonoBehaviour
                         case "Table":
                             Event.Invoke(new ItemClickEvent{tag = "ItemUse",name = hit.collider.gameObject.name,errorMessage=null});
                             break;
+                        case "Small locker.002":
+                            Event.Invoke(new ItemClickEvent{tag = "ItemUse",name = hit.collider.gameObject.name,errorMessage=null});
+                            if (GameManager.flag0)
+                              Debug.Log("Small locker.002flag=true");
+                              GameManager.flag2c = true;
+                            break;
                         default:
                             Debug.Log("アイテムを指定していません");
                             break;

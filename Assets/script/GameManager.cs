@@ -10,7 +10,7 @@ public class GameManager : MonoBehaviour
     public static bool flag0,flag0end;
     //一面フラグ管理（,,,Locker）（flag1a=table開けたか,flag1b=ロッカー確認,flag1c=スーツケース確認）
     public static bool flag1,flag1a,flag1b,flag1c,flag3a,flag3b,flag1end,flag1enda,flag1endb;
-    //二面フラグ管理（radio,,,Small stool）
+    //二面フラグ管理（flag2a=radio,flag2b=Saw,,Small stool）
     public static bool flag2a,flag2b,flag2c,flag2end,flag2enda,flag2endb;
     //三面フラグ管理
     public static bool flag30,flag301,flag31,flag32,flag33,flag330,flag3end,flag3enda,flag3endb;
@@ -170,8 +170,11 @@ public class GameManager : MonoBehaviour
                     yield return StartCoroutine(textcontroller.NormalChat("リン","既に解除された仕掛けを何回も見てもしょうがない気がするけど。"));
                     onnnanoko.SetActive(false);}
                 break;
-
-        　　　　//シナリオ３部分
+            //シナリオ三面部分
+            case "Small locker.002":
+                if (flag0end)
+                    yield return StartCoroutine(textcontroller.NormalChat("   ","何重にも釘が打たれ開かない。"));                                
+                break;
         　　　　//ハズレアイテムタッチ時
                 //それ以外   
             case "Drill Bits.002":
@@ -251,6 +254,7 @@ public class GameManager : MonoBehaviour
                     onnnanoko.SetActive(false);}
                 break;
             case "Garage door":
+                if (!iflag1){
                     yield return StartCoroutine(textcontroller.NormalChat("　　　","シャッターがある。ここから出られそうだ。"));
                     //※効果音：ガシャガシャ
                     yield return StartCoroutine(textcontroller.NormalChat("　　　","ガシャガシャ。"));
@@ -299,12 +303,28 @@ public class GameManager : MonoBehaviour
                     yield return StartCoroutine(textcontroller.NormalChat("　　　","そうだろうか？　言われてみたらそうかもしれない。僕には大事にしているものなんて何もないんだ。"));
                     yield return StartCoroutine(textcontroller.NormalChat("Player","とにかく部屋の中を探そう。"));
                     onnnanoko.SetActive(false);
-                    iflag1 = true;               
+                    iflag1 = true;}               
                 break;
-               //二面 
+                //シナリオ二面部分
+            case "Saw":
+                if (flag1end && !flag2b)
+                    yield return StartCoroutine(textcontroller.NormalChat("　　　","電動ノコギリだ。コンセントにさせれば部屋に穴を開ける事ができるかもしれない。"));
+                    onnnanoko.SetActive(true);
+                    yield return StartCoroutine(textcontroller.NormalChat("Player","これで壁を壊して出れないかな。"));
+                    yield return StartCoroutine(textcontroller.NormalChat("リン","ちょっと難しいかもしれないわね。"));
+                    yield return StartCoroutine(textcontroller.NormalChat("リン","多分主催者側もそういう脱出の方法は望んでいないでしょうし。"));
+                    yield return StartCoroutine(textcontroller.NormalChat("Player","主催者…"));
+                    yield return StartCoroutine(textcontroller.NormalChat("　　　　","「主催者」ってなんなんだ？"));
+                    onnnanoko.SetActive(false);
+                    flag2b = true;
+                break;
+               //二面パズル 
             case "Small stool":           
                 //クリア前
-                if (flag2a && flag2b && flag2b && !flag2end){
+                if (flag2a && !flag2b && !flag2end){
+                    yield return StartCoroutine(textcontroller.NormalChat("　　　","裏側に時計があるが何をすればいいのかわからない…。"));                
+                }
+                else if  (flag2a && flag2b && !flag2end){
                     yield return StartCoroutine(textcontroller.NormalChat("　　　","裏側に時計がある。"));
                     Clock.SetActive(true);}
                 //クリア後
@@ -352,6 +372,10 @@ public class GameManager : MonoBehaviour
                     yield return StartCoroutine(textcontroller.NormalChat("リン","ラジオね。好きな曲でも聴けたらいいのに。")); 
                     yield return StartCoroutine(textcontroller.NormalChat("Player","電源も入ってないからなあ。")); 
                     onnnanoko.SetActive(false);}
+                break;
+            case "Small locker.001":
+                if (flag0end)
+                    yield return StartCoroutine(textcontroller.NormalChat("   ","中には何も入っていない。"));                                
                 break;
             default:
                 break;

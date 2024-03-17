@@ -16,6 +16,7 @@ public class ItemController : MonoBehaviour
     private void Start() {
         itemUtils = GetComponent<ItemUtils>(); //アイテムUtilsの取得
         audioSource = GetComponent<AudioSource>(); //AudioSourceの取得
+
     }
 
     //画面クリック時の処理
@@ -45,6 +46,7 @@ public class ItemController : MonoBehaviour
                     switch(itemUtils.choosingGameObject.transform.GetChild(0).gameObject.name){
                         case "Simple_02":
                             if(hit.collider.gameObject.name != "Table") return;
+                            //一面スタート
                             GameManager.flag1 = true;
                             audioSource.volume = 1;
                             audioSource.clip = sound02;
@@ -57,21 +59,25 @@ public class ItemController : MonoBehaviour
                     switch(hit.collider.gameObject.name){
                         case "Camouflage suitcase with relief":
                             Event.Invoke(new ItemClickEvent{tag = "ItemUse",name = hit.collider.gameObject.name,errorMessage=null});
-                            if (GameManager.flag3)
-                            GameManager.flag2 = true;
+                            if (GameManager.iflag1 && GameManager.flag1b && !GameManager.flag1c)
+                              GameManager.flag1c = true;
                             break;
                         case "Locker":
                             Event.Invoke(new ItemClickEvent{tag = "ItemUse",name = hit.collider.gameObject.name,errorMessage=null});
-
-                            if(GameManager.flag1)
-                                GameManager.flag3 = true;
-
-                            if (GameManager.flag2){
+                            if(GameManager.iflag1 && GameManager.flag1a)
+                                GameManager.flag1b = true;
+                            if (GameManager.flag1c){
                                 GameManager.nowPuzzle = true;                               
                                 keyPanel.ActiveKeyPad();}
                             break;
                         case "Table":
                             Event.Invoke(new ItemClickEvent{tag = "ItemUse",name = hit.collider.gameObject.name,errorMessage=null});
+                            break;
+                        case "Small locker.002":
+                            Event.Invoke(new ItemClickEvent{tag = "ItemUse",name = hit.collider.gameObject.name,errorMessage=null});
+                            if (GameManager.flag0)
+                              Debug.Log("Small locker.002flag=true");
+                              GameManager.flag2c = true;
                             break;
                         default:
                             Debug.Log("アイテムを指定していません");

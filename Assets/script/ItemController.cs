@@ -52,7 +52,7 @@ public class ItemController : MonoBehaviour
                             audioSource.clip = sound02;
                             audioSource.Play();
                             Event.Invoke(new ItemClickEvent{tag = "ItemUse",name = hit.collider.gameObject.name,errorMessage=null});
-                            itemUtils.RemoveItem(itemUtils.choosingGameObject.transform.GetChild(0).gameObject);
+                            itemUtils.RemoveItem(itemUtils.choosingGameObject.transform.GetChild(0).gameObject,panels);
                             break;
                     }
                 }else if (hit.collider.tag == "ItemUse" && itemUtils.choosingGameObject == null){

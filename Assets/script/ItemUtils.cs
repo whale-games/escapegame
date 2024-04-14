@@ -12,18 +12,41 @@ public class ItemUtils : MonoBehaviour{
         if(itemList.Count == 5){
             return "配列がいっぱいです。";
         }
+        //
         itemList.Add(item.name);
         item.transform.parent = itemPanelList[itemList.IndexOf(item.name)].transform;
         item.transform.localPosition = new Vector3(0,0,-11);
         item.transform.localScale = new Vector3(500,500,500);
         item.transform.rotation = Quaternion.identity;
+        //サイズの指定↓
+        switch(item.name){
+            case "Hooks":
+        item.transform.localPosition = new Vector3(0,0,-11);
+        item.transform.localScale = new Vector3(100,100,100);
+        item.transform.rotation = Quaternion.identity;
+            break;
+            case "Bench Grinder":            
+        item.transform.localPosition = new Vector3(25,0,-11);
+        item.transform.localScale = new Vector3(250,250,250);
+        item.transform.rotation = Quaternion.identity;
+            break;
+            }
+
+        //
         item.layer = 6;
         return "0";
     }
 
     //アイテムを削除
-    public int RemoveItem(GameObject item)
+    public int RemoveItem(GameObject item,List<GameObject> itemPanelList)
     {
+        for(int i = itemList.IndexOf(item.name);i <= 3;i++){
+            if (itemPanelList[i].transform.childCount >= 1){
+                Transform transform = itemPanelList[i+1].transform.GetChild(0).gameObject.transform;
+                transform.parent = itemPanelList[i].transform;
+                transform.localPosition = new Vector3(0,0,0);
+            }
+        }
         itemList.Remove(item.name);
         Destroy(item);
         return 0;

@@ -29,9 +29,10 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject Clock,KeyPad;
     [SerializeField] private MusicBinder MusicBinder;
     [SerializeField] private GameObject gametitle;
+    [SerializeField] private SelectBox SelectBox;
     public static bool nowMessage;
     public static bool nowPuzzle;
- 
+
     public void Start(){
                 // StartCoroutine("GameTitle"); //タイトル画面表示
                 // SceneManager.LoadScene("Main");
@@ -39,6 +40,7 @@ public class GameManager : MonoBehaviour
                 // gametitle.SetActive(false);
                 StartCoroutine("StartTalk"); 
                 audioSource = GetComponent<AudioSource>(); //AudioSourceの取得
+
     }
 
     public void title(){
@@ -186,10 +188,20 @@ public class GameManager : MonoBehaviour
                     yield return StartCoroutine(textcontroller.NormalChat("Player","何か音がしたけど…。"));
                     onnnanoko.SetActive(true);
                     yield return StartCoroutine(textcontroller.NormalChat("リン","また部屋の中を探してみた方がいいみたいね。"));
+                    yield return StartCoroutine(textcontroller.NormalChat("Player","うん。"));
+                    yield return StartCoroutine(textcontroller.NormalChat("リン","そういえば…"));
+                    yield return StartCoroutine(textcontroller.NormalChat("リン","本当に覚えていないの？　この部屋に閉じ込められる「前」の事。"));
                     flag1endb = true;
                     Debug.Log("flag1endb = true");
+                    MusicBinder.Musicplay();
+                    //選択肢表示  
+                    nowPuzzle= true;
+                    SelectBox.gameObject.SetActive(true);
+                    string[] texts = {"覚えている","覚えていない"}; 
+                    SelectBox.SetReset("sentakusi",texts);
                     onnnanoko.SetActive(false);
-                    MusicBinder.Musicplay();}
+                    //選択肢表示終
+                    }
                 else if (flag1end && flag1endb){ 
                     onnnanoko.SetActive(true);
                     yield return StartCoroutine(textcontroller.NormalChat("リン","既に解除された仕掛けを何回も見てもしょうがない気がするけど。"));
@@ -328,7 +340,8 @@ public class GameManager : MonoBehaviour
                     yield return StartCoroutine(textcontroller.NormalChat("　　　","そうだろうか？　言われてみたらそうかもしれない。僕には大事にしているものなんて何もないんだ。"));
                     yield return StartCoroutine(textcontroller.NormalChat("Player","とにかく部屋の中を探そう。"));
                     onnnanoko.SetActive(false);
-                    iflag1 = true;}               
+                    iflag1 = true;
+                    }               
                 break;
                 //シナリオ二面部分
             case "Saw":
@@ -345,25 +358,37 @@ public class GameManager : MonoBehaviour
                 break;
                //二面パズル 
             case "Small stool":           
-                //クリア前
+                //二面クリア前
                 if (flag2a && !flag2b && !flag2end){
                     yield return StartCoroutine(textcontroller.NormalChat("　　　","裏側に時計があるが何をすればいいのかわからない…。"));                
                 }
                 else if  (flag2a && flag2b && !flag2end){
                     yield return StartCoroutine(textcontroller.NormalChat("　　　","裏側に時計がある。"));
                     Clock.SetActive(true);}
-                //クリア後
+                //二面クリア後
                 else if (flag2enda && !flag2endb){
                     MusicBinder.Musicstop();
                     Clock.SetActive(false);
                     audioSource.Stop(); 
                     audioSource.volume = 0.5f;
-                    //開錠時効果音koukaonClip[0]
                     audioSource.clip = koukaonClip[0];
                     audioSource.Play();
                     yield return StartCoroutine(textcontroller.NormalChat("　　　","仕掛けが解除された。"));
                     flag2endb = true;
-                    MusicBinder.Musicplay();}
+                    MusicBinder.Musicplay();
+                    yield return StartCoroutine(textcontroller.NormalChat("Player","おや、これは…？"));
+                    yield return StartCoroutine(textcontroller.NormalChat("　　　","仕掛けの解除と共に小さな紙が出てきた"));
+                    yield return StartCoroutine(textcontroller.NormalChat("　　　","<color=#ff0000>隣にいる女を信じるな</color>"));
+                    onnnanoko.SetActive(true);
+                    yield return StartCoroutine(textcontroller.NormalChat("リン","なんて書いてあったの？　その紙に。"));
+                    //２面選択肢表示  
+                    nowPuzzle= true;
+                    SelectBox.gameObject.SetActive(true);
+                    string[] texts = {"なんでもない","実は…"}; 
+                    SelectBox.SetReset("nanntekaiteattano",texts);
+                    onnnanoko.SetActive(false);
+                    //２面選択肢表示終
+                    }
                 else if (flag2enda && flag2endb)
                     yield return StartCoroutine(textcontroller.NormalChat("　　　","時計の仕掛けは解除済だ。"));
                 break;
@@ -401,6 +426,29 @@ public class GameManager : MonoBehaviour
             case "Small locker.001":
                 if (flag0end)
                     yield return StartCoroutine(textcontroller.NormalChat("   ","中には何も入っていない。"));                                
+                break;
+            case "sentakusi0":
+                    onnnanoko.SetActive(true);
+                    yield return StartCoroutine(textcontroller.NormalChat("リン","やっぱり…。で、今回はどうするつもりなの？"));        
+                    yield return StartCoroutine(textcontroller.NormalChat("Player","いや、それは…"));        
+                    yield return StartCoroutine(textcontroller.NormalChat("　　　","何も考えないで返事をしてしまった。"));
+                    yield return StartCoroutine(textcontroller.NormalChat("リン","あなたの事を信頼してはいるけど…。"));        
+                    yield return StartCoroutine(textcontroller.NormalChat("リン","ごめんなさい、もしもの時の事は、まだ考えられてないのよね…。"));
+                    onnnanoko.SetActive(false);
+                break;
+            case "sentakusi1":
+                    yield return StartCoroutine(textcontroller.NormalChat("   ","色々入ってますね。"));
+                break;
+            case "nanntekaiteattano0":
+                    yield return StartCoroutine(textcontroller.NormalChat("Player","…なんでもない。"));
+                    yield return StartCoroutine(textcontroller.NormalChat("リン","…そう。なら、いいけど…。"));
+                    audioSource.clip = koukaonClip[3];
+                    yield return StartCoroutine(textcontroller.NormalChat("Player","またこの音だ…。")); 
+                    yield return StartCoroutine(textcontroller.NormalChat("リン","ラジオを確認しましょう。"));
+                    //radioflag
+                break;
+            case "nanntekaiteattano1":
+                    yield return StartCoroutine(textcontroller.NormalChat("   ","色々入ってますね。"));            
                 break;
             default:
                 break;

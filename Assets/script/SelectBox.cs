@@ -18,6 +18,12 @@ public class SelectBox : MonoBehaviour
         例
         string[] texts = {"a","b","c"}; 
         selectBox.SetReset("test",texts);
+        ↓
+        "a"
+        yieldreturn MAIOTAビーム
+
+        "b"
+        yieldreturn MAIOTAビーム２
 
         上記の場合、1つめのボタンを押せば"test1"が返る。二つ目を押した場合は"test2"、三つめは"test3" 
     */
@@ -31,6 +37,7 @@ public class SelectBox : MonoBehaviour
 
     public void onClickButton(int value){
         Event.Invoke(new ItemClickEvent{tag = "Wrongitem",name = selectTag+value.ToString(),errorMessage=null});
+        GameManager.nowPuzzle= false; 
         gameObject.SetActive(false);
     }
 }

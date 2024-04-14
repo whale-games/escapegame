@@ -2,6 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+using UnityEngine.UI;
+using UnityEngine.SceneManagement;
+using System.Linq;
+
 public class GameManager : MonoBehaviour
 {
     [SerializeField] private textcontroller textcontroller;
@@ -24,13 +28,34 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject onnnanoko;
     [SerializeField] private GameObject Clock,KeyPad;
     [SerializeField] private MusicBinder MusicBinder;
+    [SerializeField] private GameObject gametitle;
     public static bool nowMessage;
     public static bool nowPuzzle;
  
     public void Start(){
+                // StartCoroutine("GameTitle"); //タイトル画面表示
+                // SceneManager.LoadScene("Main");
+
+                // gametitle.SetActive(false);
                 StartCoroutine("StartTalk"); 
                 audioSource = GetComponent<AudioSource>(); //AudioSourceの取得
     }
+
+    public void title(){
+                Debug.Log("start");
+                SceneManager.LoadScene("Main");
+                StartCoroutine("Start"); 
+    }
+
+    public IEnumerator GameTitle () {
+        Debug.Log("GameTitle start");
+        gametitle.SetActive(true);
+
+         Debug.Log("GameTitle end");
+        yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.A));//ボタンの入力待ち
+
+    }
+
     public IEnumerator StartTalk(){
         //オープニング
         messagePanel.SetActive(true);

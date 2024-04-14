@@ -188,7 +188,7 @@ public class GameManager : MonoBehaviour
                     yield return StartCoroutine(textcontroller.NormalChat("   ","何重にも釘が打たれ開かない。"));                                
                 break;
         　　　　//ハズレアイテムタッチ時
-                //それ以外   
+                //それ以外
             case "Drill Bits.002":
                 //キャラクター表示
                 onnnanoko.SetActive(true);
@@ -265,6 +265,7 @@ public class GameManager : MonoBehaviour
                     yield return StartCoroutine(textcontroller.NormalChat("Player","ですよね…。"));
                     onnnanoko.SetActive(false);}
                 break;
+            //オープニング➁
             case "Garage door":
                 if (!iflag1){
                     yield return StartCoroutine(textcontroller.NormalChat("　　　","シャッターがある。ここから出られそうだ。"));
@@ -320,7 +321,10 @@ public class GameManager : MonoBehaviour
                 break;
                 //シナリオ二面部分
             case "Saw":
-                if (flag1end && !flag2b)
+                if (!flag1end){
+                    yield return StartCoroutine(textcontroller.NormalChat("　　　","電動ノコギリだ。コンセントにさせれば部屋に穴を開ける事ができるかもしれない。"));
+                    yield return StartCoroutine(textcontroller.NormalChat("Player","さすがに壁を壊すのはまだ早いか…。"));}
+                else if (flag1end && flag2a && !flag2b){
                     yield return StartCoroutine(textcontroller.NormalChat("　　　","電動ノコギリだ。コンセントにさせれば部屋に穴を開ける事ができるかもしれない。"));
                     onnnanoko.SetActive(true);
                     yield return StartCoroutine(textcontroller.NormalChat("Player","これで壁を壊して出れないかな。"));
@@ -329,9 +333,27 @@ public class GameManager : MonoBehaviour
                     yield return StartCoroutine(textcontroller.NormalChat("Player","主催者…"));
                     yield return StartCoroutine(textcontroller.NormalChat("　　　　","「主催者」ってなんなんだ？"));
                     onnnanoko.SetActive(false);
-                    flag2b = true;
+                    flag2b = true;}
                 break;
-               //二面パズル 
+            case "Drilling machine":
+                if (!flag1end){
+                    yield return StartCoroutine(textcontroller.NormalChat("　　　","電動ノコギリだ。コンセントにさせれば部屋に穴を開ける事ができるかもしれない。"));
+                    yield return StartCoroutine(textcontroller.NormalChat("Player","さすがに壁を壊すのはまだ早いか…。"));}
+                else if (flag1end && flag2a && !flag2b){
+                    yield return StartCoroutine(textcontroller.NormalChat("　　　","電動ノコギリだ。コンセントにさせれば部屋に穴を開ける事ができるかもしれない。"));
+                    yield return StartCoroutine(textcontroller.NormalChat("　　　","なんだか嫌な予感がするし、そうした方がいいか？"));
+                    onnnanoko.SetActive(true);
+                    yield return StartCoroutine(textcontroller.NormalChat("Player","これで壁を壊して出れないかな。"));
+                    yield return StartCoroutine(textcontroller.NormalChat("リン","ちょっと難しいかもしれないわね。"));
+                    yield return StartCoroutine(textcontroller.NormalChat("リン","多分主催者側もそういう脱出の方法は望んでいないでしょうし。"));
+                    yield return StartCoroutine(textcontroller.NormalChat("Player","主催者…"));
+                    yield return StartCoroutine(textcontroller.NormalChat("　　　　","「主催者」ってなんなんだ？"));
+                    onnnanoko.SetActive(false);
+                    flag2b = true;}
+
+
+                break;
+               //二面パズル            
             case "Small stool":           
                 //二面クリア前
                 if (flag2a && !flag2b && !flag2end){

@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657844, g: 0.49641222, b: 0.57481676, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -2135,6 +2135,7 @@ MonoBehaviour:
   Clock: {fileID: 1733278656}
   KeyPad: {fileID: 99772776}
   MusicBinder: {fileID: 45267653}
+  gametitle: {fileID: 0}
   SelectBox: {fileID: 2097272347}
 --- !u!114 &536713258
 MonoBehaviour:

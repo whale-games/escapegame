@@ -5,12 +5,12 @@ using UnityEngine.Events;
 
 public class ItemController : MonoBehaviour
 {
-    [SerializeField] private List<GameObject> panels;
+    public List<GameObject> panels;
     [SerializeField] private KeyPanel keyPanel;
      private AudioSource audioSource;
  	[SerializeField] private AudioClip sound01,sound02;
     [SerializeField] UnityEvent<ItemClickEvent> Event;
-    
+    public static int drillmachinenumber = 0;
     private ItemUtils itemUtils;
     bool clickCancel;
     private void Start() {
@@ -30,6 +30,9 @@ public class ItemController : MonoBehaviour
             RaycastHit hit;
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             if (Physics.Raycast(ray, out hit, Mathf.Infinity)) {
+                //↓↓↓↓↓3面素材作成ギミック（タグ書き換え→Item）↓↓↓↓↓
+                if(GameManager.itemchange && hit.collider.gameObject.name == "Radio"|| hit.collider.gameObject.name == "Carpet" || hit.collider.gameObject.name == "Test") hit.collider.tag = "Item";
+                //↑↑↑↑↑3面素材作成ギミック（タグ書き換え→Item）↑↑↑↑↑
 
                 //アイテムをクリックした時の処理
                 if(hit.collider.tag == "Item" && !GameManager.nowMessage){
@@ -54,6 +57,28 @@ public class ItemController : MonoBehaviour
                             Event.Invoke(new ItemClickEvent{tag = "ItemUse",name = hit.collider.gameObject.name,errorMessage=null});
                             itemUtils.RemoveItem(itemUtils.choosingGameObject.transform.GetChild(0).gameObject,panels);
                             break;
+                        //↓↓↓↓↓3面素材作成ギミック↓↓↓↓↓
+                        case "Radio":
+                        case "Carpet":
+                        //case "Radio":
+                        //case "Carpet":                        
+                        //case "Carpet":
+                            if(hit.collider.gameObject.name != "Drilling machine") return;
+                                drillmachinenumber = drillmachinenumber+1;
+                            if (drillmachinenumber <5){
+                                audioSource.volume = 1;
+                                audioSource.clip = sound02;
+                                audioSource.Play();
+                                Event.Invoke(new ItemClickEvent{tag = "ItemUse",name = hit.collider.gameObject.name,errorMessage=null});
+                                itemUtils.RemoveItem(itemUtils.choosingGameObject.transform.GetChild(0).gameObject,panels);}
+                            else if (drillmachinenumber ==5){
+                                audioSource.volume = 1;
+                                audioSource.clip = sound02;
+                                audioSource.Play();
+                                Event.Invoke(new ItemClickEvent{tag = "ItemUse",name = hit.collider.gameObject.name,errorMessage=null});
+                                itemUtils.RemoveItem(itemUtils.choosingGameObject.transform.GetChild(0).gameObject,panels);}
+                            break;
+                        //↑↑↑↑↑3面素材作成ギミック終↑↑↑↑↑
                     }
                 }else if (hit.collider.tag == "ItemUse" && itemUtils.choosingGameObject == null){
                     switch(hit.collider.gameObject.name){
@@ -71,6 +96,9 @@ public class ItemController : MonoBehaviour
                                 keyPanel.ActiveKeyPad();}
                             break;
                         case "Table":
+                            Event.Invoke(new ItemClickEvent{tag = "ItemUse",name = hit.collider.gameObject.name,errorMessage=null});
+                            break;
+                        case "Drilling machine":
                             Event.Invoke(new ItemClickEvent{tag = "ItemUse",name = hit.collider.gameObject.name,errorMessage=null});
                             break;
                         case "Small locker.002":

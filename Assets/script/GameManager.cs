@@ -14,7 +14,7 @@ public class GameManager : MonoBehaviour
     //オープニングフラグ管理
     public static bool flag0,flag0end;
     //一面フラグ管理（,,,Locker）（flag1a=table開けたか,flag1b=ロッカー確認,flag1c=スーツケース確認）
-    public static bool flag1,flag1a,flag1b,flag1c,flag3a,flag3b,flag1end,flag1enda,flag1endb;
+    public static bool flag1,flag1a,flag1b,flag1c,flag1end,flag1enda,flag1endb;
     //二面フラグ管理（flag2a=radio,flag2b=Saw,,Small stool）
     public static bool flag2a,flag2b,flag2c,flag2end,flag2enda,flag2endb; 
     //三面フラグ管理
@@ -31,10 +31,11 @@ public class GameManager : MonoBehaviour
  	[SerializeField] private AudioClip[] audioClip;//配列使用参考
     [SerializeField] private AudioClip[] koukaonClip;//配列使用参考
     [SerializeField] private GameObject onnnanoko;
-    [SerializeField] private GameObject Clock,KeyPad;
+    [SerializeField] private GameObject Clock,KeyPad,Rimokon,RemotoController;
     [SerializeField] private MusicBinder MusicBinder;
     [SerializeField] private GameObject gametitle;
     [SerializeField] private SelectBox SelectBox;
+    [SerializeField] private RemoteControler RemoteControler;
     public static bool nowMessage;
     public static bool nowPuzzle;
     [SerializeField] private ItemUtils itemUtils;
@@ -321,6 +322,9 @@ public class GameManager : MonoBehaviour
                     yield return StartCoroutine(textcontroller.NormalChat("Player","……"));
                     onnnanoko.SetActive(false);
                     audioSource.Stop();
+                    nowPuzzle = true;
+                    Rimokon.SetActive(true);
+                    RemotoController.SetActive(true);
                 break;
             case "Emissive window":
                 if (!iflag0){

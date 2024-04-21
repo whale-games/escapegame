@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class RemoteConroler : MonoBehaviour
+public class RemoteControler : MonoBehaviour
 {
     [SerializeField] int[] counts = new int[7],answers = new int[7];
 
@@ -14,7 +14,16 @@ public class RemoteConroler : MonoBehaviour
         }
         counts[number]++;
         if(counts.SequenceEqual(answers)){
-            Debug.Log("ok");
+            Debug.Log("ok");        }
+        foreach(int count in counts){
+            if(count >=10){
+                Debug.Log("10以上。");
+            //GameManager.rimokonflag1 = true;
+            //new～Airconditionar
+
+            }
+
         }
+
     }
 }

@@ -5,19 +5,24 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     [SerializeField] private textcontroller textcontroller;
+    [SerializeField] private ItemController itemcontroller;
     [SerializeField] private GameObject messagePanel;
     //オープニングフラグ管理
     public static bool flag0,flag0end;
     //一面フラグ管理（,,,Locker）（flag1a=table開けたか,flag1b=ロッカー確認,flag1c=スーツケース確認）
     public static bool flag1,flag1a,flag1b,flag1c,flag3a,flag3b,flag1end,flag1enda,flag1endb;
     //二面フラグ管理（flag2a=radio,flag2b=Saw,,Small stool）
-    public static bool flag2a,flag2b,flag2c,flag2end,flag2enda,flag2endb;
+    public static bool flag2a,flag2b,flag2c,flag2end,flag2enda,flag2endb; 
     //三面フラグ管理
-    public static bool flag30,flag301,flag31,flag32,flag33,flag330,flag3end,flag3enda,flag3endb;
+    public static bool flag3a,flag3b,flag3c,flag3d,flag3e,flag3f,flag3end,flag3enda,flag3endb;
+    //アイテム格納管理
+    public static bool itemchange;   
     //クリア後フラグ管理
     public static bool flag4,flag4end;
     //アイテムフラグ管理（iflag0=Emissive window,iflag1=Garage door,iflag2=Camouflage suitcase with relief,Small stool）
     public static bool iflag0,iflag1,iflag2;
+    //ドリルマシンフラグ管理
+    public static bool  Drillingmachineflag;
     private AudioSource audioSource;
  	[SerializeField] private AudioClip[] audioClip;//配列使用参考
     [SerializeField] private AudioClip[] koukaonClip;//配列使用参考
@@ -27,9 +32,13 @@ public class GameManager : MonoBehaviour
     [SerializeField] private SelectBox SelectBox;
     public static bool nowMessage;
     public static bool nowPuzzle;
+    [SerializeField] private ItemUtils itemUtils;
+    [SerializeField] private GameObject getitem;
+
+
 
     public void Start(){
-                StartCoroutine("StartTalk"); 
+                StartCoroutine("StartTalk");
                 audioSource = GetComponent<AudioSource>(); //AudioSourceの取得
 
     }
@@ -140,6 +149,54 @@ public class GameManager : MonoBehaviour
             case "Camouflage suitcase with relief":
                 if (flag1b)
                     yield return StartCoroutine(textcontroller.NormalChat("　　　","紙だ。「机の引き出しの数字は逆」と書いてある"));
+                break;
+            case "Drilling machine":
+                if (!flag1end && ItemController.drillmachinenumber==0){
+                    yield return StartCoroutine(textcontroller.NormalChat("　　　","電動ノコギリだ。コンセントにさせれば部屋に穴を開ける事ができるかもしれない。"));
+                    yield return StartCoroutine(textcontroller.NormalChat("Player","さすがに壁を壊すのはまだ早いか…。"));
+                    itemchange = true;
+                    }
+                else if (flag1end && flag2a && !flag2b){
+                    yield return StartCoroutine(textcontroller.NormalChat("　　　","電動ドリルだ。コンセントにさせれば部屋に穴を開ける事ができるかもしれない。"));
+                    yield return StartCoroutine(textcontroller.NormalChat("　　　","移動が大変そうだけど…。"));
+                    onnnanoko.SetActive(true);
+                    yield return StartCoroutine(textcontroller.NormalChat("Player","これで壁を壊して出れないかな。"));
+                    yield return StartCoroutine(textcontroller.NormalChat("リン","ちょっと難しいかもしれないわね。"));
+                    yield return StartCoroutine(textcontroller.NormalChat("Player","なんとかできないかな？"));
+                    yield return StartCoroutine(textcontroller.NormalChat("リン","多分主催者側もそういう脱出の方法は望んでいないでしょうし。"));
+                    yield return StartCoroutine(textcontroller.NormalChat("Player","主催者…"));
+                    yield return StartCoroutine(textcontroller.NormalChat("　　　　","「主催者」ってなんなんだ？"));
+                    onnnanoko.SetActive(false);
+                    flag2b = true;}
+                else if (flag2endb && flag3a){
+                    onnnanoko.SetActive(true);
+                    yield return StartCoroutine(textcontroller.NormalChat("リン","ちょっと待って、この電動ドリル、動かせるんじゃない？"));
+                    yield return StartCoroutine(textcontroller.NormalChat("Player","でも、これで脱出しちゃいけないって言ってなかった？"));
+                    yield return StartCoroutine(textcontroller.NormalChat("リン","まっとうな出方なら問題ないわ。"));
+                    yield return StartCoroutine(textcontroller.NormalChat("Player","まっとうな出方の定義がわからないけど…。"));
+                    yield return StartCoroutine(textcontroller.NormalChat("リン","何か脱出の手順が用意されているはずなのよ。これは「罰」なんだから…。"));
+                    yield return StartCoroutine(textcontroller.NormalChat("Player","ごめんね、俺のせいで…。"));
+                    yield return StartCoroutine(textcontroller.NormalChat("リン","今は、気にしないで。…あとで泣けばいいだけだし。もう誰かの事を恨みたくもないわ。"));                    
+                    yield return StartCoroutine(textcontroller.NormalChat("Player","うん…。"));
+                    yield return StartCoroutine(textcontroller.NormalChat("　　　　","多分僕たちは疲れていた。少なくとも僕はもう、疲れていたんだ。"));
+                    yield return StartCoroutine(textcontroller.NormalChat("Player","ここにいくつか素材を入れれば、脱出のための道具が作れるんじゃないかな。"));
+                    yield return StartCoroutine(textcontroller.NormalChat("リン","あら、多分それね？　どうしたのよ。昔の頼もしかった時のあなたが戻ってきたみたい。"));
+                    yield return StartCoroutine(textcontroller.NormalChat("　　　　","だから覚えてないんだって…。"));
+                    yield return StartCoroutine(textcontroller.NormalChat("Player","全部で何個素材が必要？"));
+                    yield return StartCoroutine(textcontroller.NormalChat("リン","多分全部で五個くらいじゃないかしら。")); 
+                    yield return StartCoroutine(textcontroller.NormalChat("Player","わかった。とにかく部屋の中をしらみつぶしに探してみよう。"));
+                    onnnanoko.SetActive(false);}                
+                else if (flag2endb && flag3a && ItemController.drillmachinenumber<5){
+                    onnnanoko.SetActive(true);
+                    yield return StartCoroutine(textcontroller.NormalChat("リン","あと"+(5-ItemController.drillmachinenumber)+"個素材が必要ね。"));
+                    onnnanoko.SetActive(false);}
+                else if (ItemController.drillmachinenumber==5){
+                    onnnanoko.SetActive(true);
+                    yield return StartCoroutine(textcontroller.NormalChat("リン","これで素材は十分ね。"));
+                    //脱出用素材入手スクリプト起動
+                    itemUtils.AddItem(getitem, itemcontroller.panels);
+                    onnnanoko.SetActive(false);
+                    yield return StartCoroutine(textcontroller.NormalChat("　　　","脱出用のアイテムを手に入れた。"));}
                 break;
             case "Locker":
                 if (!iflag1)
@@ -328,30 +385,23 @@ public class GameManager : MonoBehaviour
                     yield return StartCoroutine(textcontroller.NormalChat("　　　","電動ノコギリだ。コンセントにさせれば部屋に穴を開ける事ができるかもしれない。"));
                     onnnanoko.SetActive(true);
                     yield return StartCoroutine(textcontroller.NormalChat("Player","これで壁を壊して出れないかな。"));
-                    yield return StartCoroutine(textcontroller.NormalChat("リン","ちょっと難しいかもしれないわね。"));
-                    yield return StartCoroutine(textcontroller.NormalChat("リン","多分主催者側もそういう脱出の方法は望んでいないでしょうし。"));
-                    yield return StartCoroutine(textcontroller.NormalChat("Player","主催者…"));
-                    yield return StartCoroutine(textcontroller.NormalChat("　　　　","「主催者」ってなんなんだ？"));
-                    onnnanoko.SetActive(false);
-                    flag2b = true;}
+                    yield return StartCoroutine(textcontroller.NormalChat("リン","こっちのノコギリでは難しいかもしれないわね。"));
+                    onnnanoko.SetActive(false);}
                 break;
-            case "Drilling machine":
-                if (!flag1end){
-                    yield return StartCoroutine(textcontroller.NormalChat("　　　","電動ノコギリだ。コンセントにさせれば部屋に穴を開ける事ができるかもしれない。"));
-                    yield return StartCoroutine(textcontroller.NormalChat("Player","さすがに壁を壊すのはまだ早いか…。"));}
+            case "Locker.001":
+                if (!flag1end)
+                    yield return StartCoroutine(textcontroller.NormalChat("　　　","大き目なロッカーだが、開かない…。"));
                 else if (flag1end && flag2a && !flag2b){
-                    yield return StartCoroutine(textcontroller.NormalChat("　　　","電動ノコギリだ。コンセントにさせれば部屋に穴を開ける事ができるかもしれない。"));
-                    yield return StartCoroutine(textcontroller.NormalChat("　　　","なんだか嫌な予感がするし、そうした方がいいか？"));
+                    yield return StartCoroutine(textcontroller.NormalChat("　　　","大き目なロッカーだが、開かない…。"));
+                    yield return StartCoroutine(textcontroller.NormalChat("Player","何かありそうな感じなんだけどなあ。"));
                     onnnanoko.SetActive(true);
-                    yield return StartCoroutine(textcontroller.NormalChat("Player","これで壁を壊して出れないかな。"));
-                    yield return StartCoroutine(textcontroller.NormalChat("リン","ちょっと難しいかもしれないわね。"));
-                    yield return StartCoroutine(textcontroller.NormalChat("リン","多分主催者側もそういう脱出の方法は望んでいないでしょうし。"));
-                    yield return StartCoroutine(textcontroller.NormalChat("Player","主催者…"));
-                    yield return StartCoroutine(textcontroller.NormalChat("　　　　","「主催者」ってなんなんだ？"));
-                    onnnanoko.SetActive(false);
-                    flag2b = true;}
-
-
+                    yield return StartCoroutine(textcontroller.NormalChat("リン","ちゃんとすみずみまで確認してみた？"));
+                    yield return StartCoroutine(textcontroller.NormalChat("Player","そんな事言われてもなあ。"));
+                    yield return StartCoroutine(textcontroller.NormalChat("リン","すぐに文句言わないの。"));
+                    yield return StartCoroutine(textcontroller.NormalChat("　　　","ロッカーの下の枠の部分をよく見てみると…。"));                    
+                    yield return StartCoroutine(textcontroller.NormalChat("Player","あ、木枠が削られて何か書いてある！"));
+                    yield return StartCoroutine(textcontroller.NormalChat("　　　","〇時〇分次への扉が開かれる。")); //2面正解の文章入れる。
+                    onnnanoko.SetActive(false);}
                 break;
                //二面パズル            
             case "Small stool":           
@@ -359,7 +409,7 @@ public class GameManager : MonoBehaviour
                 if (flag2a && !flag2b && !flag2end){
                     yield return StartCoroutine(textcontroller.NormalChat("　　　","裏側に時計があるが何をすればいいのかわからない…。"));                
                 }
-                else if  (flag2a && flag2b && !flag2end){
+                else if  (flag2a && flag2b && flag2c && !flag2end){
                     yield return StartCoroutine(textcontroller.NormalChat("　　　","裏側に時計がある。"));
                     Clock.SetActive(true);}
                 //二面クリア後
@@ -372,6 +422,7 @@ public class GameManager : MonoBehaviour
                     audioSource.Play();
                     yield return StartCoroutine(textcontroller.NormalChat("　　　","仕掛けが解除された。"));
                     flag2endb = true;
+                    flag2end = true;
                     MusicBinder.Musicplay();
                     yield return StartCoroutine(textcontroller.NormalChat("Player","おや、これは…？"));
                     yield return StartCoroutine(textcontroller.NormalChat("　　　","仕掛けの解除と共に小さな紙が出てきた"));
@@ -386,7 +437,7 @@ public class GameManager : MonoBehaviour
                     onnnanoko.SetActive(false);
                     //２面選択肢表示終
                     }
-                else if (flag2enda && flag2endb)
+                else if (flag2end)
                     yield return StartCoroutine(textcontroller.NormalChat("　　　","時計の仕掛けは解除済だ。"));
                 break;
             case "Radio":
@@ -408,12 +459,23 @@ public class GameManager : MonoBehaviour
                     onnnanoko.SetActive(false);
                     MusicBinder.Musicplay();
                     flag2a = true;}
-                else if(flag2a){
+                else if(flag2a && !flag2end){
                     yield return StartCoroutine(textcontroller.NormalChat("　　　","ラジオだ。電源は入っていない。"));
                     yield return StartCoroutine(textcontroller.NormalChat("Player","どんな仕掛けになっているんだろう？"));
                     onnnanoko.SetActive(true);
                     yield return StartCoroutine(textcontroller.NormalChat("リン","そんなのどうでもいいわ。とにかくこの部屋から出る方法を探すのよ！"));
                     onnnanoko.SetActive(false);}
+                else if(flag2end && !flag3a){
+                    MusicBinder.Musicstop();
+                    audioSource.Stop(); 
+                    audioSource.volume = 0.1f;
+                    audioSource.clip = koukaonClip[3];
+                    audioSource.Play();
+                    yield return StartCoroutine(textcontroller.NormalChat("　　　","ラジオからノイズが聞こえている。")); 
+                    audioSource.Stop(); 
+                    yield return StartCoroutine(textcontroller.NormalChat("謎の声","なかなか楽しませてもらったが～…。"));
+                    //あとで追加
+                    flag3a = true;}
                 else{
                     onnnanoko.SetActive(true);
                     yield return StartCoroutine(textcontroller.NormalChat("リン","ラジオね。好きな曲でも聴けたらいいのに。")); 

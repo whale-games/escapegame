@@ -41,7 +41,7 @@ public class ItemUtils : MonoBehaviour{
     public int RemoveItem(GameObject item,List<GameObject> itemPanelList)
     {
         for(int i = itemList.IndexOf(item.name);i <= 3;i++){
-            if (itemPanelList[i].transform.childCount >= 1){
+            if (itemPanelList[i].transform.childCount > 1){
                 Transform transform = itemPanelList[i+1].transform.GetChild(0).gameObject.transform;
                 transform.parent = itemPanelList[i].transform;
                 transform.localPosition = new Vector3(0,0,0);

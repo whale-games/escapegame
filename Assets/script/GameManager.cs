@@ -97,9 +97,15 @@ public class GameManager : MonoBehaviour
                 yield return StartCoroutine(textcontroller.NormalChat("Player","覚えていない…。"));
                 yield return StartCoroutine(textcontroller.NormalChat("Player","君の名は…？"));
                 //女性ボイス
+                audioSource.volume = 0.9f;
+                audioSource.clip = audioClip[12];
+                audioSource.Play();
                 yield return StartCoroutine(textcontroller.NormalChat("謎の女の子","急なショックで、一時的に記憶に混乱が生じているのかしら…。"));
+                audioSource.clip = audioClip[13];
+                audioSource.Play();
                //女性ボイス
                 yield return StartCoroutine(textcontroller.NormalChat("謎の女の子","私の名前はリン。リンという事にしておきましょう。コードネーム的に。"));
+                audioSource.Stop();
                 yield return StartCoroutine(textcontroller.NormalChat("Player","とにかく僕はここから出る。出なければいけないんだ…。"));
                 //女性ボイス
                 audioSource.Stop();

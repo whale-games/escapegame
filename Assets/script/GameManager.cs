@@ -41,33 +41,20 @@ public class GameManager : MonoBehaviour
     [SerializeField] private ItemUtils itemUtils;
     [SerializeField] private GameObject getitem;
 
-
-
     public void Start(){
-                // StartCoroutine("GameTitle"); //タイトル画面表示
-                // SceneManager.LoadScene("Main");
-
-                // gametitle.SetActive(false);
-                StartCoroutine("StartTalk"); 
-                audioSource = GetComponent<AudioSource>(); //AudioSourceの取得
-
+        StartCoroutine("StartTalk"); 
+        audioSource = GetComponent<AudioSource>(); //AudioSourceの取得
     }
-
     public void title(){
-                Debug.Log("start");
-                SceneManager.LoadScene("Main");
-                StartCoroutine("Start"); 
+        Debug.Log("title start");
+        StartCoroutine("Corou1");
     }
-
-    public IEnumerator GameTitle () {
-        Debug.Log("GameTitle start");
-        gametitle.SetActive(true);
-
-         Debug.Log("GameTitle end");
-        yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.A));//ボタンの入力待ち
-
+    public IEnumerator Corou1() {
+        yield return new WaitForSeconds(1);//処理を1秒待つ
+        //シーン切替
+        SceneManager.LoadScene("Main");
+        StartCoroutine("Start");
     }
-
     public IEnumerator StartTalk(){
         //オープニング
         messagePanel.SetActive(true);

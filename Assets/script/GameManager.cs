@@ -41,12 +41,9 @@ public class GameManager : MonoBehaviour
     [SerializeField] private ItemUtils itemUtils;
     [SerializeField] private GameObject getitem;
 
-    public void Start(){
-        StartCoroutine("StartTalk"); 
-        audioSource = GetComponent<AudioSource>(); //AudioSourceの取得
-    }
     public void title(){
         Debug.Log("title start");
+        audioSource = GetComponent<AudioSource>(); //AudioSourceの取得
         StartCoroutine("Corou1");
     }
     public IEnumerator Corou1() {
@@ -54,6 +51,10 @@ public class GameManager : MonoBehaviour
         //シーン切替
         SceneManager.LoadScene("Main");
         StartCoroutine("Start");
+    }
+        public void Start(){
+        StartCoroutine("StartTalk"); 
+        audioSource = GetComponent<AudioSource>(); //AudioSourceの取得
     }
     public IEnumerator StartTalk(){
         //オープニング

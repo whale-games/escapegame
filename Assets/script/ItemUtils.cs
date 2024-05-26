@@ -19,6 +19,7 @@ public class ItemUtils : MonoBehaviour{
         item.transform.localScale = new Vector3(500,500,500);
         item.transform.rotation = Quaternion.identity;
         //サイズの指定↓
+        //ItemController.csの「3面素材作成ギミック（タグ書き換え→Item）」にあるオブジェクト名の物の大きさを調整する。↓
         switch(item.name){
             case "Hooks":
         item.transform.localPosition = new Vector3(0,0,-11);

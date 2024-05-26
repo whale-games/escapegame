@@ -30,10 +30,11 @@ public class ItemController : MonoBehaviour
             RaycastHit hit;
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             if (Physics.Raycast(ray, out hit, Mathf.Infinity)) {
+                if (GameManager.flag2end) {
                 //↓↓↓↓↓3面素材作成ギミック（タグ書き換え→Item）↓↓↓↓↓
-                if(GameManager.itemchange && hit.collider.gameObject.name == "Radio"|| hit.collider.gameObject.name == "Carpet" || hit.collider.gameObject.name == "Test") hit.collider.tag = "Item";
+                    if(GameManager.itemchange && hit.collider.gameObject.name == "Drill Bits.002"|| GameManager.itemchange && hit.collider.gameObject.name == "Drill Bits.001" || GameManager.itemchange && hit.collider.gameObject.name == "Test") hit.collider.tag = "Item";
                 //↑↑↑↑↑3面素材作成ギミック（タグ書き換え→Item）↑↑↑↑↑
-
+                };
                 //アイテムをクリックした時の処理
                 if(hit.collider.tag == "Item" && !GameManager.nowMessage){
                     Debug.Log(hit.collider.gameObject.name);

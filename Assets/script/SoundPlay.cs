@@ -9,6 +9,7 @@ public class SoundPlay : MonoBehaviour
     void Start()
     {
        audioSource = GetComponent<AudioSource>(); 
+       audioSource.volume = 1.5f;
     }
 
     public void PlayStart()

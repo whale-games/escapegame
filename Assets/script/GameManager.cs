@@ -519,7 +519,13 @@ public class GameManager : MonoBehaviour
                     onnnanoko.SetActive(false);
                 break;
             case "sentakusi1":
-                    yield return StartCoroutine(textcontroller.NormalChat("   ","色々入ってますね。"));
+                    onnnanoko.SetActive(true);
+                    yield return StartCoroutine(textcontroller.NormalChat("リン","覚えていないだなんて、そんな事あるかしら"));        
+                    yield return StartCoroutine(textcontroller.NormalChat("Player","いや、それは…"));        
+                    yield return StartCoroutine(textcontroller.NormalChat("　　　","何も考えないで返事をしてしまった。"));
+                    yield return StartCoroutine(textcontroller.NormalChat("リン","あなたのせいでこうなったっていうのに…"));        
+                    yield return StartCoroutine(textcontroller.NormalChat("　　","僕のせい…。その言葉だけは、何故か納得がいった。全部僕のせいなんだ。"));
+                    onnnanoko.SetActive(false);
                 break;
             case "nanntekaiteattano0":
                     yield return StartCoroutine(textcontroller.NormalChat("Player","…なんでもない。"));

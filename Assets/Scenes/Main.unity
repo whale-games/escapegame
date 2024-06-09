@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657844, g: 0.49641222, b: 0.57481676, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1284,7 +1284,7 @@ MonoBehaviour:
   image: {fileID: 313118070}
   text: {fileID: 121446098}
   sound01: {fileID: 8300000, guid: 4ebf35648c8f7cb418857f6332dede01, type: 3}
-  sound02: {fileID: 8300000, guid: 36d9bae885ed457428a0b94412ec16ed, type: 3}
+  sound02: {fileID: 8300000, guid: f3b90de8cbbb943bf94ac081af3896a9, type: 3}
   Event:
     m_PersistentCalls:
       m_Calls:

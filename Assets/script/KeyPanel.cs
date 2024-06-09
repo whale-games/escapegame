@@ -30,11 +30,18 @@ public class KeyPanel : MonoBehaviour
                 await Task.Delay(1000);
                 Event.Invoke(new ItemClickEvent{tag = "ItemUse",name = "Locker",errorMessage=null});  
                 Debug.Log("完了");
-                GameManager.nowPuzzle= false; 
-            }else{
+                GameManager.nowPuzzle= false;} 
+            else if (number == -1){
+                Debug.Log("戻る");         
+                //GameManager.nowPuzzle= false;  
+                //keypad.SetActive(false);
+                return;} 
+            else{  
                 //失敗時
                 audioSource.volume = 1;
                 audioSource.clip = sound02;
+                Debug.Log("失敗");
+
                 audioSource.Play();
                 image.color = Color.red;
                 code = "";
@@ -42,6 +49,7 @@ public class KeyPanel : MonoBehaviour
                 await Task.Delay(1000);
                 image.color = Color.black;
             }
+
             return;
         }
 
@@ -56,6 +64,10 @@ public class KeyPanel : MonoBehaviour
 
         //もし9文字(枠上限)を超えたら、errorを出す。
         if (code.Length > 9){
+            audioSource.volume = 1;
+            audioSource.clip = sound02;
+            audioSource.Play();
+            Debug.Log("9枠超えた");
             image.color = Color.red;
             code = "";
             text.text = code;
@@ -69,6 +81,7 @@ public class KeyPanel : MonoBehaviour
 
     public void ActiveKeyPad(){
         keypad.SetActive(true);
+        audioSource.volume = 0;
     }
 
 

@@ -92,6 +92,9 @@ public class ItemController : MonoBehaviour
                             Event.Invoke(new ItemClickEvent{tag = "ItemUse",name = hit.collider.gameObject.name,errorMessage=null});
                             if(GameManager.iflag1 && GameManager.flag1a)
                                 GameManager.flag1b = true;
+                            if (GameManager.flag1end && GameManager.flag1endb){
+                                break; 
+                            }
                             if (GameManager.flag1c){
                                 GameManager.nowPuzzle = true;                               
                                 keyPanel.ActiveKeyPad();}

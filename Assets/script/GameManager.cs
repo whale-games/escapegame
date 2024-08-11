@@ -269,10 +269,11 @@ public class GameManager : MonoBehaviour
                     onnnanoko.SetActive(false);
                     //選択肢表示終
                     }
-                else if (flag1end && flag1endb){ 
+                else if (flag1end && flag1endb){
                     onnnanoko.SetActive(true);
                     yield return StartCoroutine(textcontroller.NormalChat("リン","既に解除された仕掛けを何回も見てもしょうがない気がするけど。"));
-                    onnnanoko.SetActive(false);}
+                    onnnanoko.SetActive(false);
+                    }
                 break;
             //シナリオ三面部分
             case "Small locker.002":

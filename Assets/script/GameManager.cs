@@ -57,13 +57,14 @@ public class GameManager : MonoBehaviour
     }
     public IEnumerator StartTalk(){
         //オープニング
+
         messagePanel.SetActive(true);
         nowMessage = true;
                 Debug.Log("音楽再生前");
                 yield return StartCoroutine(textcontroller.NormalChat("Player","ここは…？"));
                 MusicBinder.Musicplay();
                 Debug.Log("音楽再生後");
-                yield return StartCoroutine(textcontroller.NormalChat("　　　","目が覚めると僕は見知らぬ場所にいた。"));                
+                yield return StartCoroutine(textcontroller.NormalChat("　　　","目が覚めると僕は見知らぬ場所にいた。"));                            
                 onnnanoko.SetActive(true);
                 //女性ボイス
                 audioSource.Stop();
@@ -524,6 +525,7 @@ public class GameManager : MonoBehaviour
                     yield return StartCoroutine(textcontroller.NormalChat("リン","そんなのどうでもいいわ。とにかくこの部屋から出る方法を探すのよ！"));
                     onnnanoko.SetActive(false);}
                 else if(flag2end && !flag3a){
+                    onnnanoko.SetActive(true);
                     MusicBinder.Musicstop();
                     audioSource.Stop(); 
                     audioSource.volume = 0.1f;
@@ -531,9 +533,33 @@ public class GameManager : MonoBehaviour
                     audioSource.Play();
                     yield return StartCoroutine(textcontroller.NormalChat("　　　","ラジオからノイズが聞こえている。")); 
                     audioSource.Stop(); 
-                    yield return StartCoroutine(textcontroller.NormalChat("謎の声","なかなか楽しませてもらったが～…。"));
+                    yield return StartCoroutine(textcontroller.NormalChat("謎の声","なかなか楽しませてもらったが…。"));
                     //あとで追加
-                    flag3a = true;}
+                    flag3a = true;
+                    //※音楽変える
+                    yield return StartCoroutine(textcontroller.NormalChat("　　　","そうだ。僕はこのラジオの向こう側の人間が誰なのかも知っている。")); 
+                    yield return StartCoroutine(textcontroller.NormalChat("　　　","僕とリンは元々ここではないどこかで閉じ込められていた。"));
+                    yield return StartCoroutine(textcontroller.NormalChat("　　　","そこはここと同じように周囲から遮断された場所で、僕らはそこで奇妙な集団生活をさせられていたのだった。"));
+                    yield return StartCoroutine(textcontroller.NormalChat("　　　","そこでは僕とリンはなぜか「兄」と「妹」という役割を与えられ、家族として生活する事を強制させられた。"));
+                    yield return StartCoroutine(textcontroller.NormalChat("　　　","もちろん最初は抵抗した。"));
+                    yield return StartCoroutine(textcontroller.NormalChat("　　　","昨日までの当たり前があっという間に当たり前でなくなることを知った。"));
+                    yield return StartCoroutine(textcontroller.NormalChat("　　　","「前だって、私さえいなければこんな苦労しなくても逃げきれたはずなのに…」"));
+                    yield return StartCoroutine(textcontroller.NormalChat("　　　","「君たちは本当にできの悪い子だよ。『見送り』が決まったあとも、こうして長い事私の手をわずらわせるだなんて」"));
+                    yield return StartCoroutine(textcontroller.NormalChat("　　　","この声は、僕の「お父さん」だった人の声だ。もっとも、本当のお父さんでは、もちろんないけれど。"));
+                    yield return StartCoroutine(textcontroller.NormalChat("　　　","お父さんの声は、どこかぎこちなく、よく聞けば演技をしているのがバレバレだ。"));
+                    yield return StartCoroutine(textcontroller.NormalChat("　　　","慣れない役を上から仰せつかって、緊張もしているのだろう。"));
+                    yield return StartCoroutine(textcontroller.NormalChat("　　　","「そろそろ余興も終わりだ。時間内に脱出できなかった二人には、『ペナルティ』を与えることにしよう」"));
+                    yield return StartCoroutine(textcontroller.NormalChat("　　　","多分リンは最初から分かっていたんだろう。"));
+                    yield return StartCoroutine(textcontroller.NormalChat("　　　","これは僕達二人の為に特別に用意された罰ゲーム。最初から結末がハッピーエンドなんてありえなかった。"));
+                    yield return StartCoroutine(textcontroller.NormalChat("　　　","そう考えると、最初はあんなに冷たかった僕への態度が変わり、急にうつむき加減になってしまったリンの気持ちもなんとなく僕にはわかるのだった。"));
+                    yield return StartCoroutine(textcontroller.NormalChat("　　　","※効果音：ガスが出る音"));
+                    yield return StartCoroutine(textcontroller.NormalChat("　　　","「ガレージを開けるためのボタンは、押し続けている間だけ開くようになっている。つまりどういうことか、分かるね？」"));
+                    yield return StartCoroutine(textcontroller.NormalChat("　　　","なんのことはない。僕とリン、この部屋から出られるのは一人だけだということだ。"));
+                    yield return StartCoroutine(textcontroller.NormalChat("　　　","だとしたらもう、僕がどうするかは明らかだった。"));
+                    yield return StartCoroutine(textcontroller.NormalChat("　　　","「僕は…」"));
+                    string[] texts = {"リンを助ける","自分の命を大事にする"}; 
+                    SelectBox.SetReset("last_choice",texts);
+                    onnnanoko.SetActive(false);}
                 else{
                     onnnanoko.SetActive(true);
                     yield return StartCoroutine(textcontroller.NormalChat("リン","ラジオね。好きな曲でも聴けたらいいのに。")); 
@@ -559,7 +585,7 @@ public class GameManager : MonoBehaviour
                     yield return StartCoroutine(textcontroller.NormalChat("Player","いや、それは…"));        
                     yield return StartCoroutine(textcontroller.NormalChat("　　　","何も考えないで返事をしてしまった。"));
                     yield return StartCoroutine(textcontroller.NormalChat("リン","あなたのせいでこうなったっていうのに…"));        
-                    yield return StartCoroutine(textcontroller.NormalChat("　　","僕のせい…。その言葉だけは、何故か納得がいった。全部僕のせいなんだ。"));
+                    yield return StartCoroutine(textcontroller.NormalChat("　　　","僕のせい…。その言葉だけは、何故か納得がいった。全部僕のせいなんだ。"));
                     onnnanoko.SetActive(false);
                 break;
             case "nanntekaiteattano0":
@@ -568,10 +594,37 @@ public class GameManager : MonoBehaviour
                     audioSource.clip = koukaonClip[3];
                     yield return StartCoroutine(textcontroller.NormalChat("Player","またこの音だ…。")); 
                     yield return StartCoroutine(textcontroller.NormalChat("リン","ラジオを確認しましょう。"));
-                    //radioflag
+                    //radioへ
                 break;
             case "nanntekaiteattano1":
-                    yield return StartCoroutine(textcontroller.NormalChat("   ","色々入ってますね。"));            
+                    yield return StartCoroutine(textcontroller.NormalChat("Player","実は…")); 
+                    yield return StartCoroutine(textcontroller.NormalChat("Player","…なんでもない。"));
+                    yield return StartCoroutine(textcontroller.NormalChat("リン","…そう。なら、いいけど…。"));
+                    audioSource.clip = koukaonClip[3];
+                    yield return StartCoroutine(textcontroller.NormalChat("Player","またこの音だ…。")); 
+                    yield return StartCoroutine(textcontroller.NormalChat("リン","ラジオを確認しましょう。"));
+                    //radioへ
+                break;
+            case "last_choice0":
+            audioSource.clip = koukaonClip[3];
+                    yield return StartCoroutine(textcontroller.NormalChat("","この部屋から出られるのは一人だけ…。だったら…。")); 
+                    yield return StartCoroutine(textcontroller.NormalChat("Player","先に部屋から出ていいよ。"));
+                    yield return StartCoroutine(textcontroller.NormalChat("リン","先にって…。私が出たらあなた、この部屋から出られなくなっちゃうんじゃないの？"));
+                    yield return StartCoroutine(textcontroller.NormalChat("Player","別に諦めたわけじゃない。でも、一人でも先にこの部屋から出られるんだったら出たほうがいいと思うんだ。そうだろう？"));
+                    yield return StartCoroutine(textcontroller.NormalChat("Player","それと…。")); 
+                    yield return StartCoroutine(textcontroller.NormalChat("リン","それと…？"));
+                    yield return StartCoroutine(textcontroller.NormalChat("Player","やっぱり、こういう時は女の子の安全を先に確保すべきじゃない？"));
+                    yield return StartCoroutine(textcontroller.NormalChat("リン","そんなの、全然、理由になってないじゃない…。"));
+
+                break;
+            case "last_choice1":
+                    yield return StartCoroutine(textcontroller.NormalChat("Player","実は…")); 
+                    yield return StartCoroutine(textcontroller.NormalChat("Player","…なんでもない。"));
+                    yield return StartCoroutine(textcontroller.NormalChat("リン","…そう。なら、いいけど…。"));
+                    audioSource.clip = koukaonClip[3];
+                    yield return StartCoroutine(textcontroller.NormalChat("Player","またこの音だ…。")); 
+                    yield return StartCoroutine(textcontroller.NormalChat("リン","ラジオを確認しましょう。"));
+                    //radioへ
                 break;
             default:
                 break;

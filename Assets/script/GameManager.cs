@@ -532,7 +532,7 @@ public class GameManager : MonoBehaviour
                     audioSource.Play();
                     yield return StartCoroutine(textcontroller.NormalChat("　　　","ラジオからノイズが聞こえている。")); 
                     audioSource.Stop(); 
-                    yield return StartCoroutine(textcontroller.NormalChat("謎の声","なかなか楽しませてもらったが～…。"));
+                    yield return StartCoroutine(textcontroller.NormalChat("謎の声","なかなか楽しませてもらったが…。"));
                     //あとで追加
                     flag3a = true;
                     //※音楽変える
@@ -584,7 +584,7 @@ public class GameManager : MonoBehaviour
                     yield return StartCoroutine(textcontroller.NormalChat("Player","いや、それは…"));        
                     yield return StartCoroutine(textcontroller.NormalChat("　　　","何も考えないで返事をしてしまった。"));
                     yield return StartCoroutine(textcontroller.NormalChat("リン","あなたのせいでこうなったっていうのに…"));        
-                    yield return StartCoroutine(textcontroller.NormalChat("　　","僕のせい…。その言葉だけは、何故か納得がいった。全部僕のせいなんだ。"));
+                    yield return StartCoroutine(textcontroller.NormalChat("　　　","僕のせい…。その言葉だけは、何故か納得がいった。全部僕のせいなんだ。"));
                     onnnanoko.SetActive(false);
                 break;
             case "nanntekaiteattano0":
@@ -605,13 +605,16 @@ public class GameManager : MonoBehaviour
                     //radioへ
                 break;
             case "last_choice0":
-                    yield return StartCoroutine(textcontroller.NormalChat("Player","実は…")); 
-                    yield return StartCoroutine(textcontroller.NormalChat("Player","…なんでもない。"));
-                    yield return StartCoroutine(textcontroller.NormalChat("リン","…そう。なら、いいけど…。"));
-                    audioSource.clip = koukaonClip[3];
-                    yield return StartCoroutine(textcontroller.NormalChat("Player","またこの音だ…。")); 
-                    yield return StartCoroutine(textcontroller.NormalChat("リン","ラジオを確認しましょう。"));
-                    //radioへ
+            audioSource.clip = koukaonClip[3];
+                    yield return StartCoroutine(textcontroller.NormalChat("","この部屋から出られるのは一人だけ…。だったら…。")); 
+                    yield return StartCoroutine(textcontroller.NormalChat("Player","先に部屋から出ていいよ。"));
+                    yield return StartCoroutine(textcontroller.NormalChat("リン","先にって…。私が出たらあなた、この部屋から出られなくなっちゃうんじゃないの？"));
+                    yield return StartCoroutine(textcontroller.NormalChat("Player","別に諦めたわけじゃない。でも、一人でも先にこの部屋から出られるんだったら出たほうがいいと思うんだ。そうだろう？"));
+                    yield return StartCoroutine(textcontroller.NormalChat("Player","それと…。")); 
+                    yield return StartCoroutine(textcontroller.NormalChat("リン","それと…？"));
+                    yield return StartCoroutine(textcontroller.NormalChat("Player","やっぱり、こういう時は女の子の安全を先に確保すべきじゃない？"));
+                    yield return StartCoroutine(textcontroller.NormalChat("リン","そんなの、全然、理由になってないじゃない…。"));
+
                 break;
             case "last_choice1":
                     yield return StartCoroutine(textcontroller.NormalChat("Player","実は…")); 
